@@ -1,0 +1,2011 @@
+#ifdef MAXCOMPILER_VERSION_INFO
+#define MAXCOMPILER_VERSION_INFO_PRESENT 1
+#define MAXFILE_MAXCOMPILER_VERSION_YEAR         2015
+#define MAXFILE_MAXCOMPILER_VERSION_NUM          1
+#define MAXFILE_MAXCOMPILER_VERSION_POINT        1
+#define MAXFILE_MAXCOMPILER_VERSION_PATCH        ""
+#define MAXFILE_MAXCOMPILER_VERSION_REV          44944
+#define MAXFILE_MAXCOMPILER_VERSION_RELEASE_DATE "2015-08-07"
+#define MAXFILE_MAXCOMPILER_VERSION_RELEASE_MODE true
+#endif
+
+#ifdef MAXFILE_BUILD_INFO
+#define MAXFILE_BUILD_INFO_PRESENT 1
+#define MAXFILE_BUILD_NAME "LinearReg"
+#define MAXFILE_BUILD_DIR  "/home/demo/Desktop/MaxCompiler-Builds/LinearReg_VECTIS_DFE_SIM"
+#define MAXFILE_BUILD_DATE  20160128
+#define MAXFILE_BUILD_REV   1
+#endif
+
+#ifdef PARAM
+#define PARAM_PRESENT 1
+PARAM(APP_ID, 0)
+PARAM(REV_ID, 0)
+PARAM(CHAIN_LENGTH, 44)
+PARAM(IS_SIMULATION, 1)
+PARAM(MEC_SUPPORTED, 1)
+PARAM(PCIE_SLAVE_STREAMING, 0)
+PARAM(PCIE_ALIGNMENT, 16)
+PARAM(NUM_IFPGA_LINKS, 0)
+#endif
+
+#ifdef STRING_PARAM
+#define STRING_PARAM_PRESENT 1
+STRING_PARAM(BOARD_MODEL, "MAX3424A")
+#endif
+
+
+
+#ifdef INCLUDE_GENERATED_CPP_HEADERS
+#include "LinearRegKernel.h"
+#endif
+
+
+
+#ifdef ENGINE_PARAMETERS
+#define ENGINE_PARAMETERS_PRESENT 1
+ENGINE_PARAMETERS(DFEModel, DFEMODEL, VECTIS)
+ENGINE_PARAMETERS(maxFileName, STRING, "LinearReg")
+ENGINE_PARAMETERS(target, ENUM, DFE_SIM)
+ENGINE_PARAMETERS(enableMPCX, BOOL, false)
+ENGINE_PARAMETERS(MPPRStartCT, INT, 1)
+ENGINE_PARAMETERS(MPPREndCT, INT, 1)
+ENGINE_PARAMETERS(MPPRThreads, INT, 1)
+ENGINE_PARAMETERS(MPPRRetryThreshold, INT, 0)
+#endif
+
+
+
+
+
+
+#ifdef STREAM_OFFSET_AUTO_LOOP_VAR
+#define STREAM_OFFSET_AUTO_LOOP_VAR_PRESENT 1
+STREAM_OFFSET_AUTO_LOOP_VAR(LinearRegKernel, loopLength, 13)
+#endif
+
+
+#ifdef MANAGER_NODE
+#define MANAGER_NODE_PRESENT 1
+MANAGER_NODE(LinearRegKernel, Kernel)
+MANAGER_NODE(x1, PCIe_From_Host_fwd)
+MANAGER_NODE(x2, PCIe_From_Host_fwd)
+MANAGER_NODE(y, PCIe_From_Host_fwd)
+MANAGER_NODE(a, PCIe_To_Host_fwd)
+MANAGER_NODE(b1, PCIe_To_Host_fwd)
+MANAGER_NODE(b2, PCIe_To_Host_fwd)
+MANAGER_NODE(Stream_1, DualAspectMux)
+MANAGER_NODE(Stream_4, DualAspectMux)
+MANAGER_NODE(Stream_7, DualAspectMux)
+MANAGER_NODE(Stream_11, DualAspectReg)
+MANAGER_NODE(Stream_14, DualAspectReg)
+MANAGER_NODE(Stream_17, DualAspectReg)
+MANAGER_NODE(Stream_34, StreamPullPushAdapter)
+MANAGER_NODE(Stream_38, StreamPullPushAdapter)
+MANAGER_NODE(Stream_42, StreamPullPushAdapter)
+MANAGER_NODE(Stream_22, Fifo)
+MANAGER_NODE(Stream_26, Fifo)
+MANAGER_NODE(Stream_30, Fifo)
+MANAGER_NODE(Stream_32, Fifo)
+MANAGER_NODE(Stream_36, Fifo)
+MANAGER_NODE(Stream_40, Fifo)
+#endif
+
+#ifdef MANAGER_NODE_IO
+#define MANAGER_NODE_IO_PRESENT 1
+MANAGER_NODE_IO(LinearRegKernel, x1, IN, STREAM, 32, PULL)
+MANAGER_NODE_IO(LinearRegKernel, x2, IN, STREAM, 32, PULL)
+MANAGER_NODE_IO(LinearRegKernel, y, IN, STREAM, 32, PULL)
+MANAGER_NODE_IO(LinearRegKernel, a, OUT, STREAM, 32, PUSH)
+MANAGER_NODE_IO(LinearRegKernel, b1, OUT, STREAM, 32, PUSH)
+MANAGER_NODE_IO(LinearRegKernel, b2, OUT, STREAM, 32, PUSH)
+MANAGER_NODE_IO(x1, x1, OUT, STREAM, 128, PULL)
+MANAGER_NODE_IO(x2, x2, OUT, STREAM, 128, PULL)
+MANAGER_NODE_IO(y, y, OUT, STREAM, 128, PULL)
+MANAGER_NODE_IO(a, a, IN, STREAM, 128, PUSH)
+MANAGER_NODE_IO(b1, b1, IN, STREAM, 128, PUSH)
+MANAGER_NODE_IO(b2, b2, IN, STREAM, 128, PUSH)
+MANAGER_NODE_IO(Stream_1, input, IN, STREAM, 128, PULL)
+MANAGER_NODE_IO(Stream_1, output, OUT, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_4, input, IN, STREAM, 128, PULL)
+MANAGER_NODE_IO(Stream_4, output, OUT, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_7, input, IN, STREAM, 128, PULL)
+MANAGER_NODE_IO(Stream_7, output, OUT, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_11, input, IN, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_11, output, OUT, STREAM, 128, PULL)
+MANAGER_NODE_IO(Stream_14, input, IN, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_14, output, OUT, STREAM, 128, PULL)
+MANAGER_NODE_IO(Stream_17, input, IN, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_17, output, OUT, STREAM, 128, PULL)
+MANAGER_NODE_IO(Stream_34, input, IN, STREAM, 128, PULL)
+MANAGER_NODE_IO(Stream_34, output, OUT, STREAM, 128, PUSH)
+MANAGER_NODE_IO(Stream_38, input, IN, STREAM, 128, PULL)
+MANAGER_NODE_IO(Stream_38, output, OUT, STREAM, 128, PUSH)
+MANAGER_NODE_IO(Stream_42, input, IN, STREAM, 128, PULL)
+MANAGER_NODE_IO(Stream_42, output, OUT, STREAM, 128, PUSH)
+MANAGER_NODE_IO(Stream_22, input, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_22, output, OUT, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_26, input, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_26, output, OUT, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_30, input, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_30, output, OUT, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_32, input, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_32, output, OUT, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_36, input, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_36, output, OUT, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_40, input, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_40, output, OUT, STREAM, 32, PULL)
+#endif
+
+#ifdef MANAGER_STREAM
+#define MANAGER_STREAM_PRESENT 1
+MANAGER_STREAM(x1, x1, Stream_1, input, 128)
+MANAGER_STREAM(x2, x2, Stream_4, input, 128)
+MANAGER_STREAM(y, y, Stream_7, input, 128)
+MANAGER_STREAM(LinearRegKernel, a, Stream_32, input, 32)
+MANAGER_STREAM(LinearRegKernel, b1, Stream_36, input, 32)
+MANAGER_STREAM(LinearRegKernel, b2, Stream_40, input, 32)
+MANAGER_STREAM(Stream_1, output, Stream_22, input, 32)
+MANAGER_STREAM(Stream_4, output, Stream_26, input, 32)
+MANAGER_STREAM(Stream_7, output, Stream_30, input, 32)
+MANAGER_STREAM(Stream_11, output, Stream_34, input, 128)
+MANAGER_STREAM(Stream_14, output, Stream_38, input, 128)
+MANAGER_STREAM(Stream_17, output, Stream_42, input, 128)
+MANAGER_STREAM(Stream_34, output, a, a, 128)
+MANAGER_STREAM(Stream_38, output, b1, b1, 128)
+MANAGER_STREAM(Stream_42, output, b2, b2, 128)
+MANAGER_STREAM(Stream_22, output, LinearRegKernel, x1, 32)
+MANAGER_STREAM(Stream_26, output, LinearRegKernel, x2, 32)
+MANAGER_STREAM(Stream_30, output, LinearRegKernel, y, 32)
+MANAGER_STREAM(Stream_32, output, Stream_11, input, 32)
+MANAGER_STREAM(Stream_36, output, Stream_14, input, 32)
+MANAGER_STREAM(Stream_40, output, Stream_17, input, 32)
+#endif
+
+#ifdef MANAGER_NODE_STACK_TRACE
+#define MANAGER_NODE_STACK_TRACE_PRESENT 1
+MANAGER_NODE_STACK_TRACE(LinearRegKernel, "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:1023)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+MANAGER_NODE_STACK_TRACE(x1, "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addStreamFromCPU(CustomManager.java:1193)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:20)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+MANAGER_NODE_STACK_TRACE(x2, "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addStreamFromCPU(CustomManager.java:1193)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:21)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+MANAGER_NODE_STACK_TRACE(y, "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addStreamFromCPU(CustomManager.java:1193)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:22)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+MANAGER_NODE_STACK_TRACE(a, "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addStreamToCPU(CustomManager.java:1202)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:23)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+MANAGER_NODE_STACK_TRACE(b1, "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addStreamToCPU(CustomManager.java:1202)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:24)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+MANAGER_NODE_STACK_TRACE(b2, "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addStreamToCPU(CustomManager.java:1202)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:25)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+MANAGER_NODE_STACK_TRACE(Stream_1, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_4, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_7, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_11, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_14, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_17, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_34, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_38, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_42, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_22, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_26, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_30, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_32, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_36, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+MANAGER_NODE_STACK_TRACE(Stream_40, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+#endif
+
+
+#ifdef MANAGER_NODE_PROPERTY
+#define MANAGER_NODE_PROPERTY_PRESENT 1
+MANAGER_NODE_PROPERTY(LinearRegKernel, control_pipelining_depth, 2)
+#endif
+
+
+#ifdef KERNEL_CORE
+#define KERNEL_CORE_PRESENT 1
+KERNEL_CORE(LinearRegKernel)
+#endif
+
+#ifdef KERNEL_HOST_CONTROLLED
+#define KERNEL_HOST_CONTROLLED_PRESENT 1
+KERNEL_HOST_CONTROLLED(LinearRegKernel, LinearRegKernel)
+#endif
+
+#ifdef DEBUG_INPUT_BITS
+#define DEBUG_INPUT_BITS_PRESENT 1
+DEBUG_INPUT_BITS(LinearRegKernel, x1, 0)
+DEBUG_INPUT_BITS(LinearRegKernel, x2, 1)
+DEBUG_INPUT_BITS(LinearRegKernel, y, 2)
+#endif
+
+#ifdef DEBUG_OUTPUT_BITS
+#define DEBUG_OUTPUT_BITS_PRESENT 1
+DEBUG_OUTPUT_BITS(LinearRegKernel, a, 0)
+DEBUG_OUTPUT_BITS(LinearRegKernel, b1, 1)
+DEBUG_OUTPUT_BITS(LinearRegKernel, b2, 2)
+#endif
+
+#ifdef MANAGER_NODE_CPP_SIM_MODEL_CTOR
+#define MANAGER_NODE_CPP_SIM_MODEL_CTOR_PRESENT 1
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(x1, PCIePullSourceSyncMax3, "x1")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(x2, PCIePullSourceSyncMax3, "x2")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(y, PCIePullSourceSyncMax3, "y")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_1, DualAspectMuxSync, "Stream_1", 32, 4)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_4, DualAspectMuxSync, "Stream_4", 32, 4)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_7, DualAspectMuxSync, "Stream_7", 32, 4)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_22, FifoPushToPullSync, "Stream_22", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_26, FifoPushToPullSync, "Stream_26", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_30, FifoPushToPullSync, "Stream_30", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(LinearRegKernel, LinearRegKernel, "LinearRegKernel")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_32, FifoPushToPullSync, "Stream_32", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_36, FifoPushToPullSync, "Stream_36", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_40, FifoPushToPullSync, "Stream_40", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_11, DualAspectRegSync, "Stream_11", 32, 4)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_14, DualAspectRegSync, "Stream_14", 32, 4)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_17, DualAspectRegSync, "Stream_17", 32, 4)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_34, PullToPushAdapterSync, "Stream_34")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_38, PullToPushAdapterSync, "Stream_38")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_42, PullToPushAdapterSync, "Stream_42")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(a, PCIePushSinkSyncMax3, "a")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(b1, PCIePushSinkSyncMax3, "b1")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(b2, PCIePushSinkSyncMax3, "b2")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(CapabilityReg, CapRegs, "CapabilityReg", 0, 3, 3, 0, 0, 0, 0, 0, 44)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(ifpga, IFPGARegs)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(sfa, SFARegs)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(ChecksumMemory, ChecksumMem, "ChecksumMemory", "f7c32263a80306a4ed8fb265f08e889ad43fd48df5302d5d555ab27fc33e813d")
+#endif
+
+#ifdef MANAGER_NODE_CPP_SIM_MODEL_SETUP
+#define MANAGER_NODE_CPP_SIM_MODEL_SETUP_PRESENT 1
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_ctld_almost_empty, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_ctld_done, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_ctld_empty, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_ctld_read, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_ctld_read_pipe_dbg, 9, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_ctld_request, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_done_out, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_fill_level, 8, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_flush_level, 8, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_flush_start, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_flush_start_level, 8, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_flushing, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_full_level, 8, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_out_stall, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_out_valid, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(LinearRegKernel, addDebugRegister, reg_dbg_stall_vector, 3, 0)
+#endif
+
+#ifdef PCIE_STREAM
+#define PCIE_STREAM_PRESENT 1
+PCIE_STREAM(x1, STREAM_FROM_HOST, 0)
+PCIE_STREAM(x2, STREAM_FROM_HOST, 1)
+PCIE_STREAM(y, STREAM_FROM_HOST, 2)
+PCIE_STREAM(a, STREAM_TO_HOST, 0)
+PCIE_STREAM(b1, STREAM_TO_HOST, 1)
+PCIE_STREAM(b2, STREAM_TO_HOST, 2)
+#endif
+
+#ifdef REG
+#define REG_PRESENT 1
+REG(LinearRegKernel.dataPoints, 0x0, 4, hwFloat(8, 24))
+REG(LinearRegKernel.io_x1_force_disabled, 0x4, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(LinearRegKernel.io_x2_force_disabled, 0x5, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(LinearRegKernel.io_y_force_disabled, 0x6, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(LinearRegKernel.io_a_force_disabled, 0x7, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(LinearRegKernel.io_b1_force_disabled, 0x8, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(LinearRegKernel.io_b2_force_disabled, 0x9, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(LinearRegKernel.run_cycle_count, 0xa, 6, hwOffsetFix(48, 0, UNSIGNED))
+REG(LinearRegKernel.current_run_cycle_count, 0x10, 6, hwOffsetFix(48, 0, UNSIGNED))
+REG(LinearRegKernel.dbg_ctld_almost_empty, 0x16, 1, hwBits(3))
+REG(LinearRegKernel.dbg_ctld_done, 0x17, 1, hwBits(3))
+REG(LinearRegKernel.dbg_ctld_empty, 0x18, 1, hwBits(3))
+REG(LinearRegKernel.dbg_ctld_read, 0x19, 1, hwBits(3))
+REG(LinearRegKernel.dbg_ctld_read_pipe_dbg, 0x1a, 2, hwBits(9))
+REG(LinearRegKernel.dbg_ctld_request, 0x1c, 1, hwBits(3))
+REG(LinearRegKernel.dbg_done_out, 0x1d, 1, hwBits(1))
+REG(LinearRegKernel.dbg_fill_level, 0x1e, 1, hwBits(8))
+REG(LinearRegKernel.dbg_flush_level, 0x1f, 1, hwBits(8))
+REG(LinearRegKernel.dbg_flush_start, 0x20, 1, hwBits(1))
+REG(LinearRegKernel.dbg_flush_start_level, 0x21, 1, hwBits(8))
+REG(LinearRegKernel.dbg_flushing, 0x22, 1, hwBits(1))
+REG(LinearRegKernel.dbg_full_level, 0x23, 1, hwBits(8))
+REG(LinearRegKernel.dbg_out_stall, 0x24, 1, hwBits(3))
+REG(LinearRegKernel.dbg_out_valid, 0x25, 1, hwBits(3))
+REG(LinearRegKernel.dbg_stall_vector, 0x26, 1, hwBits(3))
+REG(ifpga.ifpga_ctrl, 0x27, 1, hwBits(8))
+REG(SignalForwardingAdapter.SFA_FORWARD_EN, 0x28, 4, hwBits(32))
+#endif
+
+#ifdef REG_V2
+#define REG_V2_PRESENT 1
+REG_V2(LinearRegKernel.dataPoints, 0x0, 4, hwFloat(8, 24), HOST_WRITE_ONLY, false)
+REG_V2(LinearRegKernel.io_x1_force_disabled, 0x4, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(LinearRegKernel.io_x2_force_disabled, 0x5, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(LinearRegKernel.io_y_force_disabled, 0x6, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(LinearRegKernel.io_a_force_disabled, 0x7, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(LinearRegKernel.io_b1_force_disabled, 0x8, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(LinearRegKernel.io_b2_force_disabled, 0x9, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(LinearRegKernel.run_cycle_count, 0xa, 6, hwOffsetFix(48, 0, UNSIGNED), HOST_WRITE_ONLY, false)
+REG_V2(LinearRegKernel.current_run_cycle_count, 0x10, 6, hwOffsetFix(48, 0, UNSIGNED), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_ctld_almost_empty, 0x16, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_ctld_done, 0x17, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_ctld_empty, 0x18, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_ctld_read, 0x19, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_ctld_read_pipe_dbg, 0x1a, 2, hwBits(9), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_ctld_request, 0x1c, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_done_out, 0x1d, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_fill_level, 0x1e, 1, hwBits(8), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_flush_level, 0x1f, 1, hwBits(8), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_flush_start, 0x20, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_flush_start_level, 0x21, 1, hwBits(8), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_flushing, 0x22, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_full_level, 0x23, 1, hwBits(8), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_out_stall, 0x24, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_out_valid, 0x25, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(LinearRegKernel.dbg_stall_vector, 0x26, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(ifpga.ifpga_ctrl, 0x27, 1, hwBits(8), HOST_READ_WRITE, false)
+REG_V2(SignalForwardingAdapter.SFA_FORWARD_EN, 0x28, 4, hwBits(32), HOST_READ_WRITE, false)
+#endif
+
+
+
+
+#ifdef CHECKSUM
+#define CHECKSUM_PRESENT 1
+CHECKSUM("f7c32263a80306a4ed8fb265f08e889ad43fd48df5302d5d555ab27fc33e813d")
+#endif
+
+#ifdef CAPABILITY
+#define CAPABILITY_PRESENT 1
+CAPABILITY(MAX3REV, MAX3REVA)
+CAPABILITY(MAX3RAM, DDR3_24GB)
+CAPABILITY(MAX3FPGA, SXT475_2ES)
+#endif
+
+#ifdef DEFINE_DESIGN_NAME
+#define DESIGN_NAME LinearReg
+#endif /* DEFINE_DESIGN_NAME */
+
+#ifndef SLIC_NO_DECLARATIONS
+/**\file */
+#ifndef SLIC_DECLARATIONS_LinearReg_H
+#define SLIC_DECLARATIONS_LinearReg_H
+#include "MaxSLiCInterface.h"
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+#define LinearReg_PCIE_ALIGNMENT (16)
+
+
+/*----------------------------------------------------------------------------*/
+/*---------------------------- Interface default -----------------------------*/
+/*----------------------------------------------------------------------------*/
+
+
+
+/**
+ * \brief Auxiliary function to evaluate expression for "LinearRegKernel.loopLength".
+ */
+int LinearReg_get_LinearRegKernel_loopLength( void );
+
+
+/**
+ * \brief Basic static function for the interface 'default'.
+ * 
+ * \param [in] param_dataPoints Interface Parameter "dataPoints".
+ * \param [in] instream_x1 The stream should be of size (param_dataPoints * 4) bytes.
+ * \param [in] instream_x2 The stream should be of size (param_dataPoints * 4) bytes.
+ * \param [in] instream_y The stream should be of size (param_dataPoints * 4) bytes.
+ * \param [out] outstream_a The stream should be of size (param_dataPoints * 4) bytes.
+ * \param [out] outstream_b1 The stream should be of size (param_dataPoints * 4) bytes.
+ * \param [out] outstream_b2 The stream should be of size (param_dataPoints * 4) bytes.
+ */
+void LinearReg(
+	int64_t param_dataPoints,
+	const float *instream_x1,
+	const float *instream_x2,
+	const float *instream_y,
+	float *outstream_a,
+	float *outstream_b1,
+	float *outstream_b2);
+
+/**
+ * \brief Basic static non-blocking function for the interface 'default'.
+ * 
+ * Schedule to run on an engine and return immediately.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ * 
+ * 
+ * \param [in] param_dataPoints Interface Parameter "dataPoints".
+ * \param [in] instream_x1 The stream should be of size (param_dataPoints * 4) bytes.
+ * \param [in] instream_x2 The stream should be of size (param_dataPoints * 4) bytes.
+ * \param [in] instream_y The stream should be of size (param_dataPoints * 4) bytes.
+ * \param [out] outstream_a The stream should be of size (param_dataPoints * 4) bytes.
+ * \param [out] outstream_b1 The stream should be of size (param_dataPoints * 4) bytes.
+ * \param [out] outstream_b2 The stream should be of size (param_dataPoints * 4) bytes.
+ * \return A handle on the execution status, or NULL in case of error.
+ */
+max_run_t *LinearReg_nonblock(
+	int64_t param_dataPoints,
+	const float *instream_x1,
+	const float *instream_x2,
+	const float *instream_y,
+	float *outstream_a,
+	float *outstream_b1,
+	float *outstream_b2);
+
+/**
+ * \brief Advanced static interface, structure for the engine interface 'default'
+ * 
+ */
+typedef struct { 
+	int64_t param_dataPoints; /**<  [in] Interface Parameter "dataPoints". */
+	const float *instream_x1; /**<  [in] The stream should be of size (param_dataPoints * 4) bytes. */
+	const float *instream_x2; /**<  [in] The stream should be of size (param_dataPoints * 4) bytes. */
+	const float *instream_y; /**<  [in] The stream should be of size (param_dataPoints * 4) bytes. */
+	float *outstream_a; /**<  [out] The stream should be of size (param_dataPoints * 4) bytes. */
+	float *outstream_b1; /**<  [out] The stream should be of size (param_dataPoints * 4) bytes. */
+	float *outstream_b2; /**<  [out] The stream should be of size (param_dataPoints * 4) bytes. */
+} LinearReg_actions_t;
+
+/**
+ * \brief Advanced static function for the interface 'default'.
+ * 
+ * \param [in] engine The engine on which the actions will be executed.
+ * \param [in,out] interface_actions Actions to be executed.
+ */
+void LinearReg_run(
+	max_engine_t *engine,
+	LinearReg_actions_t *interface_actions);
+
+/**
+ * \brief Advanced static non-blocking function for the interface 'default'.
+ *
+ * Schedule the actions to run on the engine and return immediately.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ *
+ * 
+ * \param [in] engine The engine on which the actions will be executed.
+ * \param [in] interface_actions Actions to be executed.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *LinearReg_run_nonblock(
+	max_engine_t *engine,
+	LinearReg_actions_t *interface_actions);
+
+/**
+ * \brief Group run advanced static function for the interface 'default'.
+ * 
+ * \param [in] group Group to use.
+ * \param [in,out] interface_actions Actions to run.
+ *
+ * Run the actions on the first device available in the group.
+ */
+void LinearReg_run_group(max_group_t *group, LinearReg_actions_t *interface_actions);
+
+/**
+ * \brief Group run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule the actions to run on the first device available in the group and return immediately.
+ * The status of the run must be checked with ::max_wait. 
+ * Note that use of ::max_nowait is prohibited with non-blocking running on groups:
+ * see the ::max_run_group_nonblock documentation for more explanation.
+ *
+ * \param [in] group Group to use.
+ * \param [in] interface_actions Actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *LinearReg_run_group_nonblock(max_group_t *group, LinearReg_actions_t *interface_actions);
+
+/**
+ * \brief Array run advanced static function for the interface 'default'.
+ * 
+ * \param [in] engarray The array of devices to use.
+ * \param [in,out] interface_actions The array of actions to run.
+ *
+ * Run the array of actions on the array of engines.  The length of interface_actions
+ * must match the size of engarray.
+ */
+void LinearReg_run_array(max_engarray_t *engarray, LinearReg_actions_t *interface_actions[]);
+
+/**
+ * \brief Array run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule to run the array of actions on the array of engines, and return immediately.
+ * The length of interface_actions must match the size of engarray.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ *
+ * \param [in] engarray The array of devices to use.
+ * \param [in] interface_actions The array of actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *LinearReg_run_array_nonblock(max_engarray_t *engarray, LinearReg_actions_t *interface_actions[]);
+
+/**
+ * \brief Converts a static-interface action struct into a dynamic-interface max_actions_t struct.
+ *
+ * Note that this is an internal utility function used by other functions in the static interface.
+ *
+ * \param [in] maxfile The maxfile to use.
+ * \param [in] interface_actions The interface-specific actions to run.
+ * \return The dynamic-interface actions to run, or NULL in case of error.
+ */
+max_actions_t* LinearReg_convert(max_file_t *maxfile, LinearReg_actions_t *interface_actions);
+
+/**
+ * \brief Initialise a maxfile.
+ */
+max_file_t* LinearReg_init(void);
+
+/* Error handling functions */
+int LinearReg_has_errors(void);
+const char* LinearReg_get_errors(void);
+void LinearReg_clear_errors(void);
+/* Free statically allocated maxfile data */
+void LinearReg_free(void);
+/* returns: -1 = error running command; 0 = no error reported */
+int LinearReg_simulator_start(void);
+/* returns: -1 = error running command; 0 = no error reported */
+int LinearReg_simulator_stop(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+#endif /* SLIC_DECLARATIONS_LinearReg_H */
+
+#endif /* SLIC_NO_DECLARATIONS */
+
+#ifdef PHOTON_NODE_DATA
+#define PHOTON_NODE_DATA_PRESENT 1
+PHOTON_NODE_DATA(LinearRegKernel, 2, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Count.makeCounterChain(Count.java:498)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:27)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 183, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x0d; 13.0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream$OffsetExpr.getDFEVar(Stream.java:186)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:23)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 5, NodeCounterV1, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain.addCounter(CounterChain.java:526)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:29)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 201, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x00; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:68)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 119, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:68)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 120, NodeInputMappedReg, "Scalar input (io_a_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:68)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 121, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:68)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 122, NodeAnd, "&", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:68)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 180, NodeFIFO, "FIFO(186)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 200, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x00; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:35)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 19, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:35)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 20, NodeInputMappedReg, "Scalar input (io_y_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:35)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 21, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:35)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 22, NodeAnd, "&", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:35)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 23, NodeInput, "Input(y)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:35)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 0, NodeInputMappedReg, "Scalar input (dataPoints)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.scalarInput(IO.java:1106)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:18)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 38, NodeDiv, "/", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.div(DFEVar.java:1006)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:43)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 165, NodeFIFO, "FIFO(32)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 3, NodeCast, "{HWOffsetFix:32, 0, UNSIGNED}", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.cast(DFEVar.java:165)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:28)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 4, NodeCounterV1, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain.addCounter(CounterChain.java:526)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:28)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 199, NodeConstantRawBits, "{HWOffsetFix:32, 0, UNSIGNED}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:43)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 40, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:43)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 157, NodeStreamOffset, "stream offset: -13", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:269)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:79)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:43)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 41, NodeConstantRawBits, "{HWFloat:8, 24}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:43)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 42, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:43)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 43, NodeAdd, "+", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:868)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:78)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:43)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 176, NodeFIFO, "FIFO(117)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 198, NodeConstantRawBits, "{HWOffsetFix:32, 0, UNSIGNED}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:60)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 99, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:60)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 174, NodeFIFO, "FIFO(121)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 197, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x00; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:33)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 7, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:33)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 8, NodeInputMappedReg, "Scalar input (io_x1_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:33)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 9, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:33)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 10, NodeAnd, "&", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:33)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 11, NodeInput, "Input(x1)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:33)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 166, NodeFIFO, "FIFO(40)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 24, NodeDiv, "/", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.div(DFEVar.java:1006)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:41)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 196, NodeConstantRawBits, "{HWOffsetFix:32, 0, UNSIGNED}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:41)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 26, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:41)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 158, NodeStreamOffset, "stream offset: -13", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:269)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:79)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:41)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 27, NodeConstantRawBits, "{HWFloat:8, 24}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:41)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 28, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:41)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 29, NodeAdd, "+", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:868)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:78)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:41)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 45, NodeSub, "-", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.sub(DFEVar.java:914)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:47)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 167, NodeFIFO, "FIFO(40)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 46, NodeSub, "-", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.sub(DFEVar.java:914)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:47)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 47, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:960)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:47)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 48, NodeDiv, "/", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.div(DFEVar.java:1006)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:47)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 195, NodeConstantRawBits, "{HWOffsetFix:32, 0, UNSIGNED}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:47)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 50, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:47)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 168, NodeFIFO, "FIFO(60)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 159, NodeStreamOffset, "stream offset: -13", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:269)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:79)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:47)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 51, NodeConstantRawBits, "{HWFloat:8, 24}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:47)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 52, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:47)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 53, NodeAdd, "+", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:868)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:78)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:47)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 194, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x00; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:34)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 13, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:34)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 14, NodeInputMappedReg, "Scalar input (io_x2_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:34)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 15, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:34)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 16, NodeAnd, "&", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:34)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 17, NodeInput, "Input(x2)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:522)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:34)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 169, NodeFIFO, "FIFO(40)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 31, NodeDiv, "/", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.div(DFEVar.java:1006)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:42)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 193, NodeConstantRawBits, "{HWOffsetFix:32, 0, UNSIGNED}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:42)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 33, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:42)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 160, NodeStreamOffset, "stream offset: -13", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:269)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:79)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:42)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 34, NodeConstantRawBits, "{HWFloat:8, 24}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:42)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 35, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:42)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 36, NodeAdd, "+", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:868)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:78)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:42)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 85, NodeSub, "-", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.sub(DFEVar.java:914)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:51)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 87, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:960)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:51)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 88, NodeDiv, "/", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.div(DFEVar.java:1006)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:51)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 192, NodeConstantRawBits, "{HWOffsetFix:32, 0, UNSIGNED}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:51)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 90, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:51)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 170, NodeFIFO, "FIFO(60)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 161, NodeStreamOffset, "stream offset: -13", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:269)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:79)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:51)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 91, NodeConstantRawBits, "{HWFloat:8, 24}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:51)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 92, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:51)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 93, NodeAdd, "+", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:868)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:78)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:51)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 100, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:960)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:61)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 67, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:960)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:49)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 68, NodeDiv, "/", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.div(DFEVar.java:1006)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:49)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 191, NodeConstantRawBits, "{HWOffsetFix:32, 0, UNSIGNED}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:49)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 70, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:49)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 171, NodeFIFO, "FIFO(60)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 162, NodeStreamOffset, "stream offset: -13", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:269)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:79)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:49)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 71, NodeConstantRawBits, "{HWFloat:8, 24}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:49)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 72, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:49)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 73, NodeAdd, "+", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:868)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:78)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:49)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 57, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:960)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:48)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 58, NodeDiv, "/", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.div(DFEVar.java:1006)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:48)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 190, NodeConstantRawBits, "{HWOffsetFix:32, 0, UNSIGNED}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:48)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 60, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:48)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 172, NodeFIFO, "FIFO(60)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 163, NodeStreamOffset, "stream offset: -13", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:269)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:79)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:48)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 61, NodeConstantRawBits, "{HWFloat:8, 24}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:48)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 62, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:48)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 63, NodeAdd, "+", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:868)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:78)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:48)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 101, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:960)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:61)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 102, NodeSub, "-", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.sub(DFEVar.java:914)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:61)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 77, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:960)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:50)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 78, NodeDiv, "/", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.div(DFEVar.java:1006)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:50)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 189, NodeConstantRawBits, "{HWOffsetFix:32, 0, UNSIGNED}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:50)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 80, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:50)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 173, NodeFIFO, "FIFO(60)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 164, NodeStreamOffset, "stream offset: -13", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.offset(Stream.java:269)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:79)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:50)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 81, NodeConstantRawBits, "{HWFloat:8, 24}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:50)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 82, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:77)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:50)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 83, NodeAdd, "+", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:868)\nlinearreg.LinearRegKernel.accumulate(LinearRegKernel.maxj:78)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:50)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 95, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:960)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:59)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 96, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:960)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:59)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 97, NodeSub, "-", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.sub(DFEVar.java:914)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:59)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 103, NodeDiv, "/", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.div(DFEVar.java:1006)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:61)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 104, NodeConstantRawBits, "{HWFloat:8, 24}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:60)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 105, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:60)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 175, NodeFIFO, "FIFO(109)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 114, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:960)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:64)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 115, NodeSub, "-", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.sub(DFEVar.java:914)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:64)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 188, NodeConstantRawBits, "{HWOffsetFix:32, 0, UNSIGNED}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:62)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 107, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:62)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 177, NodeFIFO, "FIFO(121)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 108, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:960)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:63)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 109, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:960)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:63)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 110, NodeSub, "-", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.sub(DFEVar.java:914)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:63)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 111, NodeDiv, "/", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.div(DFEVar.java:1006)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:63)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 112, NodeConstantRawBits, "{HWFloat:8, 24}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:62)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 113, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1173)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:62)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 178, NodeFIFO, "FIFO(109)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 116, NodeMul, "*", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.mul(DFEVar.java:960)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:64)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 179, NodeFIFO, "FIFO(12)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 117, NodeSub, "-", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.sub(DFEVar.java:914)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:64)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 123, NodeOutput, "Output(a)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:68)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 187, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x00; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:69)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 125, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:69)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 126, NodeInputMappedReg, "Scalar input (io_b1_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:69)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 127, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:69)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 128, NodeAnd, "&", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:69)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 181, NodeFIFO, "FIFO(154)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 129, NodeOutput, "Output(b1)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:69)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 186, NodeConstantRawBits, "{HWOffsetFix:8, 0, UNSIGNED}\n0x00; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:70)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 131, NodeEq, "==", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.eq(DFEVar.java:589)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:70)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 132, NodeInputMappedReg, "Scalar input (io_b2_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:70)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 133, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:70)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 134, NodeAnd, "&", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:70)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 182, NodeFIFO, "FIFO(154)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:69)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 135, NodeOutput, "Output(b2)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:685)\nlinearreg.LinearRegKernel.<init>(LinearRegKernel.maxj:70)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 140, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:1023)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 185, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:1023)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 137, NodeConstantRawBits, "{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14", "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:1023)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 138, NodeCounterV1, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:1023)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 139, NodeStreamOffset, "stream offset: 1", "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:1023)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 141, NodeOutputMappedReg, "Scalar output (current_run_cycle_count)", "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:1023)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 184, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:1023)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 143, NodeConstantRawBits, "{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14", "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:1023)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 144, NodeCounterV1, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:1023)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 146, NodeInputMappedReg, "Scalar input (run_cycle_count)", "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:1023)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 147, NodeEq, "==", "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:1023)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+PHOTON_NODE_DATA(LinearRegKernel, 145, NodeFlush, "flush on trigger", "com.maxeler.maxcompiler.v2.managers.custom.CustomManager.addKernel(CustomManager.java:1023)\nlinearreg.LinearRegManager.<init>(LinearRegManager.maxj:18)\nlinearreg.LinearRegManager.main(LinearRegManager.maxj:67)\n")
+#endif
+
+#ifdef SLIC_USE_DEFINITIONS
+#include <stdio.h>
+#include <math.h>
+#include <pthread.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+static max_file_t *stored_maxfile = NULL;
+static max_engine_t *stored_engine = NULL;
+static char *stored_error = NULL;
+static int stored_has_error = 0;
+static pthread_once_t slic_bs_is_initialised = PTHREAD_ONCE_INIT;
+
+static void set_error(const char *error_str)
+{
+	stored_has_error = 1; 
+	if(stored_error == NULL) {
+		stored_error = strdup(error_str);
+	} else {
+		char *nerr = malloc(strlen(stored_error) + strlen(error_str) + 2);
+		sprintf(nerr, "%s\n%s", stored_error, error_str);
+		free(stored_error);
+		stored_error = nerr;
+	}
+}
+static void set_error_and_free(char *error_str){
+	set_error(error_str);
+	free(error_str);
+}
+int LinearReg_has_errors(void)
+{	return stored_has_error; }
+const char* LinearReg_get_errors(void)
+{	return stored_error; }
+void LinearReg_clear_errors(void)
+{
+	free(stored_error);
+	stored_error = NULL;
+	stored_has_error = 0;
+}
+
+static char LinearReg_use_simulation[16];
+static void LinearReg_def_use_simulation(void)
+{
+	long pid = ((long) getpid()) % 100000;
+	snprintf(LinearReg_use_simulation, 16, "LinearRe_%05ld_", pid);
+}
+static const char *LinearReg_check_use_simulation(void)
+{
+	LinearReg_def_use_simulation();
+	const char *use_sim = max_config_get_string(MAX_CONFIG_USE_SIMULATION);
+	if (use_sim == NULL) {
+		use_sim = LinearReg_use_simulation;
+		max_config_set_string(MAX_CONFIG_USE_SIMULATION, use_sim);
+	}
+	return use_sim;
+}
+
+static int LinearReg_simulation_launch = 0;
+int LinearReg_simulator_start(void)
+{
+	int retval = 0;
+	const char *use_sim = LinearReg_check_use_simulation();
+	char buff[1024];
+	snprintf(buff, 1024, "PATH=simutils:$PATH maxcompilersim -d 1 -n %s -c MAX3424A -S simutils restart", use_sim);
+	FILE *pipe_fp = popen(buff, "r");
+	if (pipe_fp == NULL) {
+		strncat(buff, " : failed to execute.", (1024 - strlen(buff)));
+		set_error(buff);
+		return -1;
+	}
+	while (fgets(buff, 1024, pipe_fp) != NULL) {
+		/* Uncomment this to get simulator command output */
+		/* fprintf(stderr, buff); */
+		if (strstr(buff, "Error")) {
+			set_error(buff);
+			retval = -1;
+		}
+	}
+	pclose(pipe_fp);
+	return retval;
+}
+
+int LinearReg_simulator_stop(void)
+{
+	const char *use_sim = LinearReg_check_use_simulation();
+	char buff[1024];
+	snprintf(buff, 1024, "PATH=simutils:$PATH maxcompilersim -d 1 -n %s -c MAX3424A -S simutils stop", use_sim);
+	FILE *pipe_fp = popen(buff, "r");
+	if (pipe_fp == NULL) {
+		strncat(buff, " : failed to execute.", (1024 - strlen(buff)));
+		set_error(buff);
+		return -1;
+	}
+	while (fgets(buff, 1024, pipe_fp) != NULL) {
+		/* Uncomment this to get simulator command output */
+		/* fprintf(stderr, buff); */
+		;
+	}
+	pclose(pipe_fp);
+	return 0;
+}
+
+static void LinearReg_static_init(void) 
+{
+	stored_maxfile = LinearReg_init();
+	if (stored_maxfile == NULL || !max_ok(stored_maxfile->errors)) {
+		stored_maxfile = NULL;
+		if(max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) abort();
+		else { set_error("Unable to load maxfile"); return; }
+	}
+	if(!max_ok(max_global_errors())) {
+		set_error_and_free(max_errors_trace(max_global_errors()));
+		return;
+	}
+	if(!max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR))
+		max_errors_mode(stored_maxfile->errors, 0);
+	time_t timeout_previous = max_load_timeout(stored_maxfile, 30);
+	const char *use_sim = LinearReg_check_use_simulation();
+	if (max_ping_daemon(stored_maxfile, use_sim) == 0) {
+		int sim_stat = LinearReg_simulator_start();
+		if ((sim_stat == 0) && (max_ping_daemon(stored_maxfile, use_sim) == 1)) {
+			LinearReg_simulation_launch = 1;
+		} else {
+			set_error("Error: An error occurred while trying to start the simulation infrastructure automatically.");
+			set_error("Error: Check that 'use_simulation=<simulator_name>' is set correctly in your SLiC configuration");
+			set_error("Error: and that the associated simulated system daemon is running.");
+			max_file_free(stored_maxfile);
+			stored_maxfile = NULL;
+			return;
+		}
+	}
+	stored_engine = max_load(stored_maxfile, "*");
+	if (!max_ok(stored_maxfile->errors)) {
+		if(max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) {
+			fprintf(stderr, "\nUnable to load engine: aborting now.\n\n");
+			fflush(stderr);
+			abort();
+		} else {
+			set_error_and_free(max_errors_trace(stored_maxfile->errors));
+			max_file_free(stored_maxfile);
+			stored_maxfile = NULL;
+			return;
+		} 
+	} 
+	max_load_timeout(stored_maxfile, timeout_previous);
+}
+void LinearReg_free(void)
+{
+	if (stored_engine != NULL) {
+		max_unload(stored_engine);
+		stored_engine = NULL;
+	}
+	if (stored_maxfile != NULL) {
+		max_file_free(stored_maxfile);
+		stored_maxfile = NULL;
+	}
+	if (stored_error != NULL) {
+		free(stored_error);
+		stored_error = NULL;
+	}
+	if (LinearReg_simulation_launch == 1) {
+		int sim_stat = LinearReg_simulator_stop();
+		if (sim_stat != 0 ) {
+			fprintf(stderr, "Error stopping simulator.");
+		}
+		LinearReg_simulation_launch = 0;
+	}
+}
+
+static int LinearReg_get_pcie_alignment(void)
+{
+#ifdef LinearReg_PCIE_ALIGNMENT
+	return ((LinearReg_PCIE_ALIGNMENT < 1) ? 16 : LinearReg_PCIE_ALIGNMENT);
+#else
+	return 16;
+#endif
+}
+
+static int LinearReg_check_aligned(const void *data)
+{
+	uintptr_t pointer = (uintptr_t) data;
+	int alignment = LinearReg_get_pcie_alignment();
+	return (pointer % alignment) ? 1 : 0;
+}
+
+static void *LinearReg_malloc_aligned(const size_t size)
+{
+	void *ptr;
+	int alignment = LinearReg_get_pcie_alignment();
+	posix_memalign(&ptr, alignment, size);
+	return ptr;
+}
+
+
+
+/*----------------------------------------------------------------------------*/
+/*---------------------------- Interface default -----------------------------*/
+/*----------------------------------------------------------------------------*/
+
+
+
+/**
+ * \brief Auxiliary function to evaluate expression for "LinearRegKernel.loopLength".
+ */
+int LinearReg_get_LinearRegKernel_loopLength( void )
+{
+	return 13;
+}
+
+#define CHECK_ERRORS_ST(ST, RET) if(!max_ok(ST->errors)) { if(max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) { fprintf(stderr, "%s\n", max_errors_trace(ST->errors)); abort(); } set_error_and_free(max_errors_trace(ST->errors)); return RET; } 
+#define CHECK_NULL(VALUE, MESSAGE, RET) if(VALUE == NULL) { if (max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) { fprintf(stderr, "%s\n%s\n", (stored_error == NULL) ? "" : stored_error, MESSAGE); abort(); } set_error(MESSAGE); return RET; }
+
+ 
+typedef struct LinearReg_callback_stream {
+	uint8_t *user_ptr;
+	uint8_t *aligned_ptr;
+	size_t   size;
+	int      is_output;
+} LinearReg_callback_stream_t;
+
+typedef struct LinearReg_callback_data {
+	LinearReg_callback_stream_t stream[6]; 
+	int count;
+	int max_count;
+} LinearReg_callback_data_t;
+
+static void LinearReg_callback_internal(void *cb_data)
+{
+	LinearReg_callback_data_t *data = (LinearReg_callback_data_t*) cb_data;
+	for (int i = 0 ; i < data->count ; i++ ) {
+		LinearReg_callback_stream_t *s = &data->stream[i];
+		if (s->is_output && (s->size > 0)) {
+			memcpy(s->user_ptr, s->aligned_ptr, s->size);
+		}
+		free(s->aligned_ptr);
+	}
+	free(data);
+}
+
+static max_actions_t* LinearReg_convert_internal(
+	max_file_t *maxfile,
+	LinearReg_actions_t *interface_actions,
+	int  is_internal_call,
+	void (**callback_func)(void*),
+	void **callback_data)
+{
+	max_actions_t *actions = max_actions_init(maxfile, NULL);
+	if(actions == NULL) return NULL;
+
+#define CHECK_ERRORS if(!max_ok(actions->errors)) { set_error_and_free(max_errors_trace(actions->errors)); return NULL; } 
+
+	LinearReg_callback_data_t *cb_data = NULL;
+	int use_callback = (callback_func != NULL) && (callback_data != NULL);
+	if (use_callback) {
+		cb_data = malloc(sizeof(LinearReg_callback_data_t));
+		if (cb_data == NULL) {
+			fprintf(stderr, "Unable to allocate memory for stream callback data in function LinearReg_convert_internal\n");
+			return NULL;
+		}
+		cb_data->max_count = 6;
+		cb_data->count     = 0;
+		*callback_data     = cb_data;
+		*callback_func     = &LinearReg_callback_internal;
+	}
+
+	int64_t param_dataPoints = interface_actions->param_dataPoints;
+	
+	int32_t param_LinearRegKernel_loopLength = LinearReg_get_LinearRegKernel_loopLength(  );
+	
+	int64_t tmp_0 = (param_dataPoints * param_LinearRegKernel_loopLength);
+	
+	/* code for scalar LinearRegKernel.run_cycle_count */
+	uint64_t ticks_LinearRegKernel = tmp_0;
+	max_set_ticks(actions, "LinearRegKernel", tmp_0);
+	CHECK_ERRORS;
+	/* end of code for scalar LinearRegKernel.run_cycle_count*/
+	
+	/* code for scalar LinearRegKernel.dataPoints */
+	double inscalar_LinearRegKernel_dataPoints = param_dataPoints;
+	max_set_double(actions, "LinearRegKernel", "dataPoints", inscalar_LinearRegKernel_dataPoints);
+	CHECK_ERRORS;
+	/* end of code for scalar LinearRegKernel.dataPoints*/
+	
+	int64_t tmp_1 = (param_dataPoints * 4);
+	
+	/* code for stream x1 */
+	size_t instream_size_x1 = tmp_1;
+	if (instream_size_x1 > 0) {
+		const float *stream_ptr = interface_actions->instream_x1;
+		if (use_callback && (1 == LinearReg_check_aligned(interface_actions->instream_x1))) {
+			float *aligned_instream_x1 = malloc(instream_size_x1);
+			if (aligned_instream_x1 == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'x1'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->instream_x1;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_instream_x1;
+			(&cb_data->stream[cb_data->count])->size        = instream_size_x1;
+			(&cb_data->stream[cb_data->count])->is_output   = 0;
+			cb_data->count += 1;
+			memcpy(aligned_instream_x1, interface_actions->instream_x1, instream_size_x1);
+			stream_ptr = aligned_instream_x1;
+		}
+		max_queue_input(actions, "x1", stream_ptr, instream_size_x1);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream x1 */
+	
+	int64_t tmp_2 = (param_dataPoints * 4);
+	
+	/* code for stream x2 */
+	size_t instream_size_x2 = tmp_2;
+	if (instream_size_x2 > 0) {
+		const float *stream_ptr = interface_actions->instream_x2;
+		if (use_callback && (1 == LinearReg_check_aligned(interface_actions->instream_x2))) {
+			float *aligned_instream_x2 = malloc(instream_size_x2);
+			if (aligned_instream_x2 == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'x2'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->instream_x2;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_instream_x2;
+			(&cb_data->stream[cb_data->count])->size        = instream_size_x2;
+			(&cb_data->stream[cb_data->count])->is_output   = 0;
+			cb_data->count += 1;
+			memcpy(aligned_instream_x2, interface_actions->instream_x2, instream_size_x2);
+			stream_ptr = aligned_instream_x2;
+		}
+		max_queue_input(actions, "x2", stream_ptr, instream_size_x2);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream x2 */
+	
+	int64_t tmp_3 = (param_dataPoints * 4);
+	
+	/* code for stream y */
+	size_t instream_size_y = tmp_3;
+	if (instream_size_y > 0) {
+		const float *stream_ptr = interface_actions->instream_y;
+		if (use_callback && (1 == LinearReg_check_aligned(interface_actions->instream_y))) {
+			float *aligned_instream_y = malloc(instream_size_y);
+			if (aligned_instream_y == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'y'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->instream_y;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_instream_y;
+			(&cb_data->stream[cb_data->count])->size        = instream_size_y;
+			(&cb_data->stream[cb_data->count])->is_output   = 0;
+			cb_data->count += 1;
+			memcpy(aligned_instream_y, interface_actions->instream_y, instream_size_y);
+			stream_ptr = aligned_instream_y;
+		}
+		max_queue_input(actions, "y", stream_ptr, instream_size_y);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream y */
+	
+	int64_t tmp_4 = (param_dataPoints * 4);
+	
+	/* code for stream a */
+	size_t outstream_size_a = tmp_4;
+	if (outstream_size_a > 0) {
+		float *stream_ptr = interface_actions->outstream_a;
+		if (use_callback && (1 == LinearReg_check_aligned(interface_actions->outstream_a))) {
+			float *aligned_outstream_a = malloc(outstream_size_a);
+			if (aligned_outstream_a == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'a'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->outstream_a;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_outstream_a;
+			(&cb_data->stream[cb_data->count])->size        = outstream_size_a;
+			(&cb_data->stream[cb_data->count])->is_output   = 1;
+			cb_data->count += 1;
+			stream_ptr = aligned_outstream_a;
+		}
+		max_queue_output(actions, "a", stream_ptr, outstream_size_a);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream a */
+	
+	int64_t tmp_5 = (param_dataPoints * 4);
+	
+	/* code for stream b1 */
+	size_t outstream_size_b1 = tmp_5;
+	if (outstream_size_b1 > 0) {
+		float *stream_ptr = interface_actions->outstream_b1;
+		if (use_callback && (1 == LinearReg_check_aligned(interface_actions->outstream_b1))) {
+			float *aligned_outstream_b1 = malloc(outstream_size_b1);
+			if (aligned_outstream_b1 == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'b1'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->outstream_b1;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_outstream_b1;
+			(&cb_data->stream[cb_data->count])->size        = outstream_size_b1;
+			(&cb_data->stream[cb_data->count])->is_output   = 1;
+			cb_data->count += 1;
+			stream_ptr = aligned_outstream_b1;
+		}
+		max_queue_output(actions, "b1", stream_ptr, outstream_size_b1);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream b1 */
+	
+	int64_t tmp_6 = (param_dataPoints * 4);
+	
+	/* code for stream b2 */
+	size_t outstream_size_b2 = tmp_6;
+	if (outstream_size_b2 > 0) {
+		float *stream_ptr = interface_actions->outstream_b2;
+		if (use_callback && (1 == LinearReg_check_aligned(interface_actions->outstream_b2))) {
+			float *aligned_outstream_b2 = malloc(outstream_size_b2);
+			if (aligned_outstream_b2 == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'b2'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->outstream_b2;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_outstream_b2;
+			(&cb_data->stream[cb_data->count])->size        = outstream_size_b2;
+			(&cb_data->stream[cb_data->count])->is_output   = 1;
+			cb_data->count += 1;
+			stream_ptr = aligned_outstream_b2;
+		}
+		max_queue_output(actions, "b2", stream_ptr, outstream_size_b2);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream b2 */
+	
+	if (use_callback && cb_data->count == 0) {
+		*callback_data = NULL;
+		*callback_func = NULL;
+		free(cb_data);
+	}
+	return actions;
+#undef CHECK_ERRORS
+}
+
+void LinearReg(
+	int64_t param_dataPoints,
+	const float *instream_x1,
+	const float *instream_x2,
+	const float *instream_y,
+	float *outstream_a,
+	float *outstream_b1,
+	float *outstream_b2)
+{
+	(void) pthread_once(&slic_bs_is_initialised, LinearReg_static_init);
+	CHECK_NULL(stored_maxfile, "Maxfile was not loaded", );
+	max_run_t *run = LinearReg_nonblock(param_dataPoints, instream_x1, instream_x2, instream_y, outstream_a, outstream_b1, outstream_b2);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+max_run_t *LinearReg_nonblock(
+	int64_t param_dataPoints,
+	const float *instream_x1,
+	const float *instream_x2,
+	const float *instream_y,
+	float *outstream_a,
+	float *outstream_b1,
+	float *outstream_b2)
+{
+	LinearReg_actions_t interface_actions;
+	interface_actions.param_dataPoints = param_dataPoints;
+	interface_actions.instream_x1 = instream_x1;
+	interface_actions.instream_x2 = instream_x2;
+	interface_actions.instream_y = instream_y;
+	interface_actions.outstream_a = outstream_a;
+	interface_actions.outstream_b1 = outstream_b1;
+	interface_actions.outstream_b2 = outstream_b2;
+	(void) pthread_once(&slic_bs_is_initialised, LinearReg_static_init);
+	CHECK_NULL(stored_maxfile, "Maxfile was not loaded", NULL);
+	void (*cb_func)(void*) = NULL;
+	void  *cb_data         = NULL;
+	max_actions_t *actions = LinearReg_convert_internal(stored_maxfile, &interface_actions, 1, &cb_func, &cb_data);
+	CHECK_NULL(actions, "Unable to build actions", NULL);
+	max_validate(actions);
+	CHECK_ERRORS_ST(actions, NULL);
+	CHECK_ERRORS_ST(stored_engine, NULL);
+	max_run_t *run;
+	if (cb_func == NULL) {
+		run = max_run_nonblock(stored_engine, actions);
+	} else {
+		run = max_run_nonblock_with_cb(stored_engine, actions, cb_func, cb_data);
+	}
+	CHECK_NULL(run, "Unable to run actions", NULL);
+	CHECK_ERRORS_ST(actions, NULL);
+	max_actions_free(actions);
+	return run;
+}
+
+void LinearReg_run(
+	max_engine_t *engine,
+	LinearReg_actions_t *interface_actions)
+{
+	max_run_t *run = LinearReg_run_nonblock(engine, interface_actions);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+max_run_t *LinearReg_run_nonblock(
+	max_engine_t *engine,
+	LinearReg_actions_t *interface_actions)
+{
+	max_file_t *maxfile = max_engine_get_max_file(engine); 
+	void (*cb_func)(void*) = NULL;
+	void  *cb_data         = NULL;
+	max_actions_t *actions = LinearReg_convert_internal(maxfile, interface_actions, 1, &cb_func, &cb_data);
+	CHECK_ERRORS_ST(actions, NULL);
+	max_run_t *run;
+	if (cb_func == NULL) {
+		run = max_run_nonblock(engine, actions);
+	} else {
+		run = max_run_nonblock_with_cb(engine, actions, cb_func, cb_data);
+	}
+	CHECK_NULL(run, "Unable to run actions", NULL);
+	max_actions_free(actions);
+	return run;
+}
+
+
+/**
+ * \brief Group run advanced static function for the interface 'default'.
+ * 
+ * \param [in] group Group to use.
+ * \param [in,out] interface_actions Actions to run.
+ *
+ * Run the actions on the first device available in the group.
+ */
+void LinearReg_run_group(max_group_t *group, LinearReg_actions_t *interface_actions)
+{
+	max_run_t *run = LinearReg_run_group_nonblock(group, interface_actions);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+
+/**
+ * \brief Group run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule the actions to run on the first device available in the group and return immediately.
+ * The status of the run must be checked with ::max_wait. 
+ * Note that use of ::max_nowait is prohibited with non-blocking running on groups:
+ * see the ::max_run_group_nonblock documentation for more explanation.
+ *
+ * \param [in] group Group to use.
+ * \param [in] interface_actions Actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *LinearReg_run_group_nonblock(max_group_t *group, LinearReg_actions_t *interface_actions)
+{
+	max_file_t *maxfile = max_group_get_max_file(group);
+	max_actions_t *actions = LinearReg_convert_internal(maxfile, interface_actions, 1, NULL, NULL);
+	if(actions == NULL) return NULL;
+	if(!max_ok(actions->errors)) return NULL;
+	max_validate(actions);
+	max_run_t *run = max_run_group_nonblock(group, actions);
+	max_actions_free(actions);
+	return run;
+}
+
+
+/**
+ * \brief Array run advanced static function for the interface 'default'.
+ * 
+ * \param [in] engarray The array of devices to use.
+ * \param [in,out] interface_actions The array of actions to run.
+ *
+ * Run the array of actions on the array of engines.  The length of interface_actions
+ * must match the size of engarray.
+ */
+void LinearReg_run_array(max_engarray_t *engarray, LinearReg_actions_t *interface_actions[])
+{
+	max_run_t *run = LinearReg_run_array_nonblock(engarray, interface_actions);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+
+/**
+ * \brief Array run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule to run the array of actions on the array of engines, and return immediately.
+ * The length of interface_actions must match the size of engarray.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ *
+ * \param [in] engarray The array of devices to use.
+ * \param [in] interface_actions The array of actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *LinearReg_run_array_nonblock(max_engarray_t *engarray, LinearReg_actions_t *interface_actions[])
+{
+	max_file_t *maxfile = max_engarray_get_max_file(engarray, 0);
+	int i;
+	max_actarray_t *actarray = max_actarray_init(maxfile, engarray->size);
+	if (actarray == NULL) return NULL;
+	max_actions_t **arr_actions = malloc(engarray->size * sizeof(max_actions_t*));
+	for ( i = 0 ; i < actarray->size; i++ ) {
+		max_actions_t *actions = LinearReg_convert_internal(maxfile, interface_actions[i], 1, NULL, NULL);
+		if (actions == NULL) return NULL;
+		arr_actions[i] = actions;
+		max_set_action(actarray, i, actions);
+	}
+	max_run_t *run = max_run_array_nonblock(engarray, actarray);
+	for ( i = 0 ; i < actarray->size ; i++ ) { max_actions_free(arr_actions[i]); }
+	max_actarray_free(actarray);
+	free(arr_actions);
+	return run;
+}
+
+
+/**
+ * \brief Converts a static-interface action struct into a dynamic-interface max_actions_t struct.
+ *
+ * Note that this is an internal utility function used by other functions in the static interface.
+ *
+ * \param [in] maxfile The maxfile to use.
+ * \param [in] interface_actions The interface-specific actions to run.
+ * \return The dynamic-interface actions to run, or NULL in case of error.
+ */
+max_actions_t* LinearReg_convert(max_file_t *maxfile, LinearReg_actions_t *interface_actions)
+{
+	return LinearReg_convert_internal(maxfile, interface_actions, 0, NULL, NULL);
+}
+
+#undef CHECK_ERRORS_ST
+#undef CHECK_NULL
+
+
+
+#endif /* SLIC_USE_DEFINITIONS */
+
+#ifdef SLIC_DYNAMIC_CODE
+SLIC_MODE_START(default)	
+SLIC_PARAMETER_UINT64(int64_t, dataPoints, param_dataPoints)	
+SLIC_AUTO_LOOP_OFFSET(int32_t, LinearRegKernel, loopLength, param_LinearRegKernel_loopLength)	
+SLIC_TEMP_VAR(int64_t tmp_0 = (param_dataPoints * param_LinearRegKernel_loopLength);)	
+SLIC_SET_TICKS(LinearRegKernel, tmp_0)	
+SLIC_SCALAR_UINT64(LinearRegKernel, dataPoints, param_dataPoints)	
+SLIC_TEMP_VAR(int64_t tmp_1 = (param_dataPoints * 4);)	
+SLIC_STREAM(x1, tmp_1)	
+SLIC_TEMP_VAR(int64_t tmp_2 = (param_dataPoints * 4);)	
+SLIC_STREAM(x2, tmp_2)	
+SLIC_TEMP_VAR(int64_t tmp_3 = (param_dataPoints * 4);)	
+SLIC_STREAM(y, tmp_3)	
+SLIC_TEMP_VAR(int64_t tmp_4 = (param_dataPoints * 4);)	
+SLIC_STREAM(a, tmp_4)	
+SLIC_TEMP_VAR(int64_t tmp_5 = (param_dataPoints * 4);)	
+SLIC_STREAM(b1, tmp_5)	
+SLIC_TEMP_VAR(int64_t tmp_6 = (param_dataPoints * 4);)	
+SLIC_STREAM(b2, tmp_6)	
+SLIC_MODE_END(default)
+
+#endif /* SLIC_DYNAMIC_CODE */
+
+#ifdef SKIN_META_DATA
+PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PG1h
+eGZpbGUgZm9ybWF0LXZlcnNpb249IjIwMTIwMjAwIiBoZWFkZXI9IkxpbmVhclJlZy5oIiBuYW1l
+PSJMaW5lYXJSZWciPjxjb25zdGFudCBuYW1lPSJQQ0lFX0FMSUdOTUVOVCIgdHlwZT0ibG9uZyIg
+dmFsdWU9IjE2Ii8+PGVuZ2luZW1vZGUgbmFtZT0iZGVmYXVsdCI+PGZ1bmN0aW9uIG5hbWU9Ikxp
+bmVhclJlZyIgcmV0dXJuLXZhbHVlPSJ2b2lkIj48c2NhbGFyIGRlc2M9IkludGVyZmFjZSBQYXJh
+bWV0ZXIgJnF1b3Q7ZGF0YVBvaW50cyZxdW90Oy4iIGRpcmVjdGlvbj0iSW5wdXQiIG5hbWU9InBh
+cmFtX2RhdGFQb2ludHMiIHR5cGU9ImludDY0X3QiLz48YXJyYXkgZGVzYz0iVGhlIHN0cmVhbSBz
+aG91bGQgYmUgb2Ygc2l6ZSAocGFyYW1fZGF0YVBvaW50cyAqIDQpIGJ5dGVzLiIgZGlyZWN0aW9u
+PSJJbnB1dCIgbmFtZT0iaW5zdHJlYW1feDEiIHNpemU9IihwYXJhbV9kYXRhUG9pbnRzICogNCki
+IHRyYW5zcG9zZT0idHJ1ZSIgdHlwZT0iZmxvYXQiPjxkaW1lbnNpb24gaW5kZXg9IjAiPjxsZW5n
+dGg+PGZ1bmN0aW9uQ2FsbD48bnVtQmluYXJ5T3BlcmF0b3Igb3BlcmF0b3I9Ii8iIHZhbHVlPSIo
+KHBhcmFtX2RhdGFQb2ludHMgKiA0KSAvIDQpIj48ZnVuY3Rpb25DYWxsPjxudW1CaW5hcnlPcGVy
+YXRvciBvcGVyYXRvcj0iKiIgdmFsdWU9IihwYXJhbV9kYXRhUG9pbnRzICogNCkiPjx1c2VyUGFy
+YW0gdmFsdWU9InBhcmFtX2RhdGFQb2ludHMiLz48Y29uc3RhbnRWYWx1ZSB2YWx1ZT0iNCIvPjwv
+bnVtQmluYXJ5T3BlcmF0b3I+PC9mdW5jdGlvbkNhbGw+PGNvbnN0YW50VmFsdWUgdmFsdWU9IjQi
+Lz48L251bUJpbmFyeU9wZXJhdG9yPjwvZnVuY3Rpb25DYWxsPjwvbGVuZ3RoPjwvZGltZW5zaW9u
+PjwvYXJyYXk+PGFycmF5IGRlc2M9IlRoZSBzdHJlYW0gc2hvdWxkIGJlIG9mIHNpemUgKHBhcmFt
+X2RhdGFQb2ludHMgKiA0KSBieXRlcy4iIGRpcmVjdGlvbj0iSW5wdXQiIG5hbWU9Imluc3RyZWFt
+X3gyIiBzaXplPSIocGFyYW1fZGF0YVBvaW50cyAqIDQpIiB0cmFuc3Bvc2U9InRydWUiIHR5cGU9
+ImZsb2F0Ij48ZGltZW5zaW9uIGluZGV4PSIwIj48bGVuZ3RoPjxmdW5jdGlvbkNhbGw+PG51bUJp
+bmFyeU9wZXJhdG9yIG9wZXJhdG9yPSIvIiB2YWx1ZT0iKChwYXJhbV9kYXRhUG9pbnRzICogNCkg
+LyA0KSI+PGZ1bmN0aW9uQ2FsbD48bnVtQmluYXJ5T3BlcmF0b3Igb3BlcmF0b3I9IioiIHZhbHVl
+PSIocGFyYW1fZGF0YVBvaW50cyAqIDQpIj48dXNlclBhcmFtIHZhbHVlPSJwYXJhbV9kYXRhUG9p
+bnRzIi8+PGNvbnN0YW50VmFsdWUgdmFsdWU9IjQiLz48L251bUJpbmFyeU9wZXJhdG9yPjwvZnVu
+Y3Rpb25DYWxsPjxjb25zdGFudFZhbHVlIHZhbHVlPSI0Ii8+PC9udW1CaW5hcnlPcGVyYXRvcj48
+L2Z1bmN0aW9uQ2FsbD48L2xlbmd0aD48L2RpbWVuc2lvbj48L2FycmF5PjxhcnJheSBkZXNjPSJU
+aGUgc3RyZWFtIHNob3VsZCBiZSBvZiBzaXplIChwYXJhbV9kYXRhUG9pbnRzICogNCkgYnl0ZXMu
+IiBkaXJlY3Rpb249IklucHV0IiBuYW1lPSJpbnN0cmVhbV95IiBzaXplPSIocGFyYW1fZGF0YVBv
+aW50cyAqIDQpIiB0cmFuc3Bvc2U9InRydWUiIHR5cGU9ImZsb2F0Ij48ZGltZW5zaW9uIGluZGV4
+PSIwIj48bGVuZ3RoPjxmdW5jdGlvbkNhbGw+PG51bUJpbmFyeU9wZXJhdG9yIG9wZXJhdG9yPSIv
+IiB2YWx1ZT0iKChwYXJhbV9kYXRhUG9pbnRzICogNCkgLyA0KSI+PGZ1bmN0aW9uQ2FsbD48bnVt
+QmluYXJ5T3BlcmF0b3Igb3BlcmF0b3I9IioiIHZhbHVlPSIocGFyYW1fZGF0YVBvaW50cyAqIDQp
+Ij48dXNlclBhcmFtIHZhbHVlPSJwYXJhbV9kYXRhUG9pbnRzIi8+PGNvbnN0YW50VmFsdWUgdmFs
+dWU9IjQiLz48L251bUJpbmFyeU9wZXJhdG9yPjwvZnVuY3Rpb25DYWxsPjxjb25zdGFudFZhbHVl
+IHZhbHVlPSI0Ii8+PC9udW1CaW5hcnlPcGVyYXRvcj48L2Z1bmN0aW9uQ2FsbD48L2xlbmd0aD48
+L2RpbWVuc2lvbj48L2FycmF5PjxhcnJheSBkZXNjPSJUaGUgc3RyZWFtIHNob3VsZCBiZSBvZiBz
+aXplIChwYXJhbV9kYXRhUG9pbnRzICogNCkgYnl0ZXMuIiBkaXJlY3Rpb249Ik91dHB1dCIgbmFt
+ZT0ib3V0c3RyZWFtX2EiIHNpemU9IihwYXJhbV9kYXRhUG9pbnRzICogNCkiIHRyYW5zcG9zZT0i
+dHJ1ZSIgdHlwZT0iZmxvYXQiPjxkaW1lbnNpb24gaW5kZXg9IjAiPjxsZW5ndGg+PGZ1bmN0aW9u
+Q2FsbD48bnVtQmluYXJ5T3BlcmF0b3Igb3BlcmF0b3I9Ii8iIHZhbHVlPSIoKHBhcmFtX2RhdGFQ
+b2ludHMgKiA0KSAvIDQpIj48ZnVuY3Rpb25DYWxsPjxudW1CaW5hcnlPcGVyYXRvciBvcGVyYXRv
+cj0iKiIgdmFsdWU9IihwYXJhbV9kYXRhUG9pbnRzICogNCkiPjx1c2VyUGFyYW0gdmFsdWU9InBh
+cmFtX2RhdGFQb2ludHMiLz48Y29uc3RhbnRWYWx1ZSB2YWx1ZT0iNCIvPjwvbnVtQmluYXJ5T3Bl
+cmF0b3I+PC9mdW5jdGlvbkNhbGw+PGNvbnN0YW50VmFsdWUgdmFsdWU9IjQiLz48L251bUJpbmFy
+eU9wZXJhdG9yPjwvZnVuY3Rpb25DYWxsPjwvbGVuZ3RoPjwvZGltZW5zaW9uPjwvYXJyYXk+PGFy
+cmF5IGRlc2M9IlRoZSBzdHJlYW0gc2hvdWxkIGJlIG9mIHNpemUgKHBhcmFtX2RhdGFQb2ludHMg
+KiA0KSBieXRlcy4iIGRpcmVjdGlvbj0iT3V0cHV0IiBuYW1lPSJvdXRzdHJlYW1fYjEiIHNpemU9
+IihwYXJhbV9kYXRhUG9pbnRzICogNCkiIHRyYW5zcG9zZT0idHJ1ZSIgdHlwZT0iZmxvYXQiPjxk
+aW1lbnNpb24gaW5kZXg9IjAiPjxsZW5ndGg+PGZ1bmN0aW9uQ2FsbD48bnVtQmluYXJ5T3BlcmF0
+b3Igb3BlcmF0b3I9Ii8iIHZhbHVlPSIoKHBhcmFtX2RhdGFQb2ludHMgKiA0KSAvIDQpIj48ZnVu
+Y3Rpb25DYWxsPjxudW1CaW5hcnlPcGVyYXRvciBvcGVyYXRvcj0iKiIgdmFsdWU9IihwYXJhbV9k
+YXRhUG9pbnRzICogNCkiPjx1c2VyUGFyYW0gdmFsdWU9InBhcmFtX2RhdGFQb2ludHMiLz48Y29u
+c3RhbnRWYWx1ZSB2YWx1ZT0iNCIvPjwvbnVtQmluYXJ5T3BlcmF0b3I+PC9mdW5jdGlvbkNhbGw+
+PGNvbnN0YW50VmFsdWUgdmFsdWU9IjQiLz48L251bUJpbmFyeU9wZXJhdG9yPjwvZnVuY3Rpb25D
+YWxsPjwvbGVuZ3RoPjwvZGltZW5zaW9uPjwvYXJyYXk+PGFycmF5IGRlc2M9IlRoZSBzdHJlYW0g
+c2hvdWxkIGJlIG9mIHNpemUgKHBhcmFtX2RhdGFQb2ludHMgKiA0KSBieXRlcy4iIGRpcmVjdGlv
+bj0iT3V0cHV0IiBuYW1lPSJvdXRzdHJlYW1fYjIiIHNpemU9IihwYXJhbV9kYXRhUG9pbnRzICog
+NCkiIHRyYW5zcG9zZT0idHJ1ZSIgdHlwZT0iZmxvYXQiPjxkaW1lbnNpb24gaW5kZXg9IjAiPjxs
+ZW5ndGg+PGZ1bmN0aW9uQ2FsbD48bnVtQmluYXJ5T3BlcmF0b3Igb3BlcmF0b3I9Ii8iIHZhbHVl
+PSIoKHBhcmFtX2RhdGFQb2ludHMgKiA0KSAvIDQpIj48ZnVuY3Rpb25DYWxsPjxudW1CaW5hcnlP
+cGVyYXRvciBvcGVyYXRvcj0iKiIgdmFsdWU9IihwYXJhbV9kYXRhUG9pbnRzICogNCkiPjx1c2Vy
+UGFyYW0gdmFsdWU9InBhcmFtX2RhdGFQb2ludHMiLz48Y29uc3RhbnRWYWx1ZSB2YWx1ZT0iNCIv
+PjwvbnVtQmluYXJ5T3BlcmF0b3I+PC9mdW5jdGlvbkNhbGw+PGNvbnN0YW50VmFsdWUgdmFsdWU9
+IjQiLz48L251bUJpbmFyeU9wZXJhdG9yPjwvZnVuY3Rpb25DYWxsPjwvbGVuZ3RoPjwvZGltZW5z
+aW9uPjwvYXJyYXk+PC9mdW5jdGlvbj48L2VuZ2luZW1vZGU+PC9tYXhmaWxlPg==
+#endif /* SKIN_META_DATA */
+
+#ifdef SLIC_B64_DEFINITIONS
+I2luY2x1ZGUgPHN0ZGlvLmg+CiNpbmNsdWRlIDxtYXRoLmg+CiNpbmNsdWRlIDxwdGhyZWFkLmg+
+CiNpbmNsdWRlIDxzdHJpbmcuaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgojaW5jbHVkZSA8c3RkbGli
+Lmg+CnN0YXRpYyBtYXhfZmlsZV90ICpzdG9yZWRfbWF4ZmlsZSA9IE5VTEw7CnN0YXRpYyBtYXhf
+ZW5naW5lX3QgKnN0b3JlZF9lbmdpbmUgPSBOVUxMOwpzdGF0aWMgY2hhciAqc3RvcmVkX2Vycm9y
+ID0gTlVMTDsKc3RhdGljIGludCBzdG9yZWRfaGFzX2Vycm9yID0gMDsKc3RhdGljIHB0aHJlYWRf
+b25jZV90IHNsaWNfYnNfaXNfaW5pdGlhbGlzZWQgPSBQVEhSRUFEX09OQ0VfSU5JVDsKCnN0YXRp
+YyB2b2lkIHNldF9lcnJvcihjb25zdCBjaGFyICplcnJvcl9zdHIpCnsKCXN0b3JlZF9oYXNfZXJy
+b3IgPSAxOyAKCWlmKHN0b3JlZF9lcnJvciA9PSBOVUxMKSB7CgkJc3RvcmVkX2Vycm9yID0gc3Ry
+ZHVwKGVycm9yX3N0cik7Cgl9IGVsc2UgewoJCWNoYXIgKm5lcnIgPSBtYWxsb2Moc3RybGVuKHN0
+b3JlZF9lcnJvcikgKyBzdHJsZW4oZXJyb3Jfc3RyKSArIDIpOwoJCXNwcmludGYobmVyciwgIiVz
+XG4lcyIsIHN0b3JlZF9lcnJvciwgZXJyb3Jfc3RyKTsKCQlmcmVlKHN0b3JlZF9lcnJvcik7CgkJ
+c3RvcmVkX2Vycm9yID0gbmVycjsKCX0KfQpzdGF0aWMgdm9pZCBzZXRfZXJyb3JfYW5kX2ZyZWUo
+Y2hhciAqZXJyb3Jfc3RyKXsKCXNldF9lcnJvcihlcnJvcl9zdHIpOwoJZnJlZShlcnJvcl9zdHIp
+Owp9CmludCBMaW5lYXJSZWdfaGFzX2Vycm9ycyh2b2lkKQp7CXJldHVybiBzdG9yZWRfaGFzX2Vy
+cm9yOyB9CmNvbnN0IGNoYXIqIExpbmVhclJlZ19nZXRfZXJyb3JzKHZvaWQpCnsJcmV0dXJuIHN0
+b3JlZF9lcnJvcjsgfQp2b2lkIExpbmVhclJlZ19jbGVhcl9lcnJvcnModm9pZCkKewoJZnJlZShz
+dG9yZWRfZXJyb3IpOwoJc3RvcmVkX2Vycm9yID0gTlVMTDsKCXN0b3JlZF9oYXNfZXJyb3IgPSAw
+Owp9CgpzdGF0aWMgY2hhciBMaW5lYXJSZWdfdXNlX3NpbXVsYXRpb25bMTZdOwpzdGF0aWMgdm9p
+ZCBMaW5lYXJSZWdfZGVmX3VzZV9zaW11bGF0aW9uKHZvaWQpCnsKCWxvbmcgcGlkID0gKChsb25n
+KSBnZXRwaWQoKSkgJSAxMDAwMDA7CglzbnByaW50ZihMaW5lYXJSZWdfdXNlX3NpbXVsYXRpb24s
+IDE2LCAiTGluZWFyUmVfJTA1bGRfIiwgcGlkKTsKfQpzdGF0aWMgY29uc3QgY2hhciAqTGluZWFy
+UmVnX2NoZWNrX3VzZV9zaW11bGF0aW9uKHZvaWQpCnsKCUxpbmVhclJlZ19kZWZfdXNlX3NpbXVs
+YXRpb24oKTsKCWNvbnN0IGNoYXIgKnVzZV9zaW0gPSBtYXhfY29uZmlnX2dldF9zdHJpbmcoTUFY
+X0NPTkZJR19VU0VfU0lNVUxBVElPTik7CglpZiAodXNlX3NpbSA9PSBOVUxMKSB7CgkJdXNlX3Np
+bSA9IExpbmVhclJlZ191c2Vfc2ltdWxhdGlvbjsKCQltYXhfY29uZmlnX3NldF9zdHJpbmcoTUFY
+X0NPTkZJR19VU0VfU0lNVUxBVElPTiwgdXNlX3NpbSk7Cgl9CglyZXR1cm4gdXNlX3NpbTsKfQoK
+c3RhdGljIGludCBMaW5lYXJSZWdfc2ltdWxhdGlvbl9sYXVuY2ggPSAwOwppbnQgTGluZWFyUmVn
+X3NpbXVsYXRvcl9zdGFydCh2b2lkKQp7CglpbnQgcmV0dmFsID0gMDsKCWNvbnN0IGNoYXIgKnVz
+ZV9zaW0gPSBMaW5lYXJSZWdfY2hlY2tfdXNlX3NpbXVsYXRpb24oKTsKCWNoYXIgYnVmZlsxMDI0
+XTsKCXNucHJpbnRmKGJ1ZmYsIDEwMjQsICJQQVRIPXNpbXV0aWxzOiRQQVRIIG1heGNvbXBpbGVy
+c2ltIC1kIDEgLW4gJXMgLWMgTUFYMzQyNEEgLVMgc2ltdXRpbHMgcmVzdGFydCIsIHVzZV9zaW0p
+OwoJRklMRSAqcGlwZV9mcCA9IHBvcGVuKGJ1ZmYsICJyIik7CglpZiAocGlwZV9mcCA9PSBOVUxM
+KSB7CgkJc3RybmNhdChidWZmLCAiIDogZmFpbGVkIHRvIGV4ZWN1dGUuIiwgKDEwMjQgLSBzdHJs
+ZW4oYnVmZikpKTsKCQlzZXRfZXJyb3IoYnVmZik7CgkJcmV0dXJuIC0xOwoJfQoJd2hpbGUgKGZn
+ZXRzKGJ1ZmYsIDEwMjQsIHBpcGVfZnApICE9IE5VTEwpIHsKCQkvKiBVbmNvbW1lbnQgdGhpcyB0
+byBnZXQgc2ltdWxhdG9yIGNvbW1hbmQgb3V0cHV0ICovCgkJLyogZnByaW50ZihzdGRlcnIsIGJ1
+ZmYpOyAqLwoJCWlmIChzdHJzdHIoYnVmZiwgIkVycm9yIikpIHsKCQkJc2V0X2Vycm9yKGJ1ZmYp
+OwoJCQlyZXR2YWwgPSAtMTsKCQl9Cgl9CglwY2xvc2UocGlwZV9mcCk7CglyZXR1cm4gcmV0dmFs
+Owp9CgppbnQgTGluZWFyUmVnX3NpbXVsYXRvcl9zdG9wKHZvaWQpCnsKCWNvbnN0IGNoYXIgKnVz
+ZV9zaW0gPSBMaW5lYXJSZWdfY2hlY2tfdXNlX3NpbXVsYXRpb24oKTsKCWNoYXIgYnVmZlsxMDI0
+XTsKCXNucHJpbnRmKGJ1ZmYsIDEwMjQsICJQQVRIPXNpbXV0aWxzOiRQQVRIIG1heGNvbXBpbGVy
+c2ltIC1kIDEgLW4gJXMgLWMgTUFYMzQyNEEgLVMgc2ltdXRpbHMgc3RvcCIsIHVzZV9zaW0pOwoJ
+RklMRSAqcGlwZV9mcCA9IHBvcGVuKGJ1ZmYsICJyIik7CglpZiAocGlwZV9mcCA9PSBOVUxMKSB7
+CgkJc3RybmNhdChidWZmLCAiIDogZmFpbGVkIHRvIGV4ZWN1dGUuIiwgKDEwMjQgLSBzdHJsZW4o
+YnVmZikpKTsKCQlzZXRfZXJyb3IoYnVmZik7CgkJcmV0dXJuIC0xOwoJfQoJd2hpbGUgKGZnZXRz
+KGJ1ZmYsIDEwMjQsIHBpcGVfZnApICE9IE5VTEwpIHsKCQkvKiBVbmNvbW1lbnQgdGhpcyB0byBn
+ZXQgc2ltdWxhdG9yIGNvbW1hbmQgb3V0cHV0ICovCgkJLyogZnByaW50ZihzdGRlcnIsIGJ1ZmYp
+OyAqLwoJCTsKCX0KCXBjbG9zZShwaXBlX2ZwKTsKCXJldHVybiAwOwp9CgpzdGF0aWMgdm9pZCBM
+aW5lYXJSZWdfc3RhdGljX2luaXQodm9pZCkgCnsKCXN0b3JlZF9tYXhmaWxlID0gTGluZWFyUmVn
+X2luaXQoKTsKCWlmIChzdG9yZWRfbWF4ZmlsZSA9PSBOVUxMIHx8ICFtYXhfb2soc3RvcmVkX21h
+eGZpbGUtPmVycm9ycykpIHsKCQlzdG9yZWRfbWF4ZmlsZSA9IE5VTEw7CgkJaWYobWF4X2NvbmZp
+Z19nZXRfYm9vbChNQVhfQ09ORklHX1NUQVRJQ19JTlRFUkZBQ0VfQUJPUlRfT05fRVJST1IpKSBh
+Ym9ydCgpOwoJCWVsc2UgeyBzZXRfZXJyb3IoIlVuYWJsZSB0byBsb2FkIG1heGZpbGUiKTsgcmV0
+dXJuOyB9Cgl9CglpZighbWF4X29rKG1heF9nbG9iYWxfZXJyb3JzKCkpKSB7CgkJc2V0X2Vycm9y
+X2FuZF9mcmVlKG1heF9lcnJvcnNfdHJhY2UobWF4X2dsb2JhbF9lcnJvcnMoKSkpOwoJCXJldHVy
+bjsKCX0KCWlmKCFtYXhfY29uZmlnX2dldF9ib29sKE1BWF9DT05GSUdfU1RBVElDX0lOVEVSRkFD
+RV9BQk9SVF9PTl9FUlJPUikpCgkJbWF4X2Vycm9yc19tb2RlKHN0b3JlZF9tYXhmaWxlLT5lcnJv
+cnMsIDApOwoJdGltZV90IHRpbWVvdXRfcHJldmlvdXMgPSBtYXhfbG9hZF90aW1lb3V0KHN0b3Jl
+ZF9tYXhmaWxlLCAzMCk7Cgljb25zdCBjaGFyICp1c2Vfc2ltID0gTGluZWFyUmVnX2NoZWNrX3Vz
+ZV9zaW11bGF0aW9uKCk7CglpZiAobWF4X3BpbmdfZGFlbW9uKHN0b3JlZF9tYXhmaWxlLCB1c2Vf
+c2ltKSA9PSAwKSB7CgkJaW50IHNpbV9zdGF0ID0gTGluZWFyUmVnX3NpbXVsYXRvcl9zdGFydCgp
+OwoJCWlmICgoc2ltX3N0YXQgPT0gMCkgJiYgKG1heF9waW5nX2RhZW1vbihzdG9yZWRfbWF4Zmls
+ZSwgdXNlX3NpbSkgPT0gMSkpIHsKCQkJTGluZWFyUmVnX3NpbXVsYXRpb25fbGF1bmNoID0gMTsK
+CQl9IGVsc2UgewoJCQlzZXRfZXJyb3IoIkVycm9yOiBBbiBlcnJvciBvY2N1cnJlZCB3aGlsZSB0
+cnlpbmcgdG8gc3RhcnQgdGhlIHNpbXVsYXRpb24gaW5mcmFzdHJ1Y3R1cmUgYXV0b21hdGljYWxs
+eS4iKTsKCQkJc2V0X2Vycm9yKCJFcnJvcjogQ2hlY2sgdGhhdCAndXNlX3NpbXVsYXRpb249PHNp
+bXVsYXRvcl9uYW1lPicgaXMgc2V0IGNvcnJlY3RseSBpbiB5b3VyIFNMaUMgY29uZmlndXJhdGlv
+biIpOwoJCQlzZXRfZXJyb3IoIkVycm9yOiBhbmQgdGhhdCB0aGUgYXNzb2NpYXRlZCBzaW11bGF0
+ZWQgc3lzdGVtIGRhZW1vbiBpcyBydW5uaW5nLiIpOwoJCQltYXhfZmlsZV9mcmVlKHN0b3JlZF9t
+YXhmaWxlKTsKCQkJc3RvcmVkX21heGZpbGUgPSBOVUxMOwoJCQlyZXR1cm47CgkJfQoJfQoJc3Rv
+cmVkX2VuZ2luZSA9IG1heF9sb2FkKHN0b3JlZF9tYXhmaWxlLCAiKiIpOwoJaWYgKCFtYXhfb2so
+c3RvcmVkX21heGZpbGUtPmVycm9ycykpIHsKCQlpZihtYXhfY29uZmlnX2dldF9ib29sKE1BWF9D
+T05GSUdfU1RBVElDX0lOVEVSRkFDRV9BQk9SVF9PTl9FUlJPUikpIHsKCQkJZnByaW50ZihzdGRl
+cnIsICJcblVuYWJsZSB0byBsb2FkIGVuZ2luZTogYWJvcnRpbmcgbm93LlxuXG4iKTsKCQkJZmZs
+dXNoKHN0ZGVycik7CgkJCWFib3J0KCk7CgkJfSBlbHNlIHsKCQkJc2V0X2Vycm9yX2FuZF9mcmVl
+KG1heF9lcnJvcnNfdHJhY2Uoc3RvcmVkX21heGZpbGUtPmVycm9ycykpOwoJCQltYXhfZmlsZV9m
+cmVlKHN0b3JlZF9tYXhmaWxlKTsKCQkJc3RvcmVkX21heGZpbGUgPSBOVUxMOwoJCQlyZXR1cm47
+CgkJfSAKCX0gCgltYXhfbG9hZF90aW1lb3V0KHN0b3JlZF9tYXhmaWxlLCB0aW1lb3V0X3ByZXZp
+b3VzKTsKfQp2b2lkIExpbmVhclJlZ19mcmVlKHZvaWQpCnsKCWlmIChzdG9yZWRfZW5naW5lICE9
+IE5VTEwpIHsKCQltYXhfdW5sb2FkKHN0b3JlZF9lbmdpbmUpOwoJCXN0b3JlZF9lbmdpbmUgPSBO
+VUxMOwoJfQoJaWYgKHN0b3JlZF9tYXhmaWxlICE9IE5VTEwpIHsKCQltYXhfZmlsZV9mcmVlKHN0
+b3JlZF9tYXhmaWxlKTsKCQlzdG9yZWRfbWF4ZmlsZSA9IE5VTEw7Cgl9CglpZiAoc3RvcmVkX2Vy
+cm9yICE9IE5VTEwpIHsKCQlmcmVlKHN0b3JlZF9lcnJvcik7CgkJc3RvcmVkX2Vycm9yID0gTlVM
+TDsKCX0KCWlmIChMaW5lYXJSZWdfc2ltdWxhdGlvbl9sYXVuY2ggPT0gMSkgewoJCWludCBzaW1f
+c3RhdCA9IExpbmVhclJlZ19zaW11bGF0b3Jfc3RvcCgpOwoJCWlmIChzaW1fc3RhdCAhPSAwICkg
+ewoJCQlmcHJpbnRmKHN0ZGVyciwgIkVycm9yIHN0b3BwaW5nIHNpbXVsYXRvci4iKTsKCQl9CgkJ
+TGluZWFyUmVnX3NpbXVsYXRpb25fbGF1bmNoID0gMDsKCX0KfQoKc3RhdGljIGludCBMaW5lYXJS
+ZWdfZ2V0X3BjaWVfYWxpZ25tZW50KHZvaWQpCnsKI2lmZGVmIExpbmVhclJlZ19QQ0lFX0FMSUdO
+TUVOVAoJcmV0dXJuICgoTGluZWFyUmVnX1BDSUVfQUxJR05NRU5UIDwgMSkgPyAxNiA6IExpbmVh
+clJlZ19QQ0lFX0FMSUdOTUVOVCk7CiNlbHNlCglyZXR1cm4gMTY7CiNlbmRpZgp9CgpzdGF0aWMg
+aW50IExpbmVhclJlZ19jaGVja19hbGlnbmVkKGNvbnN0IHZvaWQgKmRhdGEpCnsKCXVpbnRwdHJf
+dCBwb2ludGVyID0gKHVpbnRwdHJfdCkgZGF0YTsKCWludCBhbGlnbm1lbnQgPSBMaW5lYXJSZWdf
+Z2V0X3BjaWVfYWxpZ25tZW50KCk7CglyZXR1cm4gKHBvaW50ZXIgJSBhbGlnbm1lbnQpID8gMSA6
+IDA7Cn0KCnN0YXRpYyB2b2lkICpMaW5lYXJSZWdfbWFsbG9jX2FsaWduZWQoY29uc3Qgc2l6ZV90
+IHNpemUpCnsKCXZvaWQgKnB0cjsKCWludCBhbGlnbm1lbnQgPSBMaW5lYXJSZWdfZ2V0X3BjaWVf
+YWxpZ25tZW50KCk7Cglwb3NpeF9tZW1hbGlnbigmcHRyLCBhbGlnbm1lbnQsIHNpemUpOwoJcmV0
+dXJuIHB0cjsKfQoKCgovKi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0qLwovKi0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0gSW50ZXJmYWNlIGRlZmF1bHQgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0qLwovKi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0qLwoKCgovKioKICogXGJyaWVmIEF1eGlsaWFyeSBm
+dW5jdGlvbiB0byBldmFsdWF0ZSBleHByZXNzaW9uIGZvciAiTGluZWFyUmVnS2VybmVsLmxvb3BM
+ZW5ndGgiLgogKi8KaW50IExpbmVhclJlZ19nZXRfTGluZWFyUmVnS2VybmVsX2xvb3BMZW5ndGgo
+IHZvaWQgKQp7CglyZXR1cm4gMTM7Cn0KCiNkZWZpbmUgQ0hFQ0tfRVJST1JTX1NUKFNULCBSRVQp
+IGlmKCFtYXhfb2soU1QtPmVycm9ycykpIHsgaWYobWF4X2NvbmZpZ19nZXRfYm9vbChNQVhfQ09O
+RklHX1NUQVRJQ19JTlRFUkZBQ0VfQUJPUlRfT05fRVJST1IpKSB7IGZwcmludGYoc3RkZXJyLCAi
+JXNcbiIsIG1heF9lcnJvcnNfdHJhY2UoU1QtPmVycm9ycykpOyBhYm9ydCgpOyB9IHNldF9lcnJv
+cl9hbmRfZnJlZShtYXhfZXJyb3JzX3RyYWNlKFNULT5lcnJvcnMpKTsgcmV0dXJuIFJFVDsgfSAK
+I2RlZmluZSBDSEVDS19OVUxMKFZBTFVFLCBNRVNTQUdFLCBSRVQpIGlmKFZBTFVFID09IE5VTEwp
+IHsgaWYgKG1heF9jb25maWdfZ2V0X2Jvb2woTUFYX0NPTkZJR19TVEFUSUNfSU5URVJGQUNFX0FC
+T1JUX09OX0VSUk9SKSkgeyBmcHJpbnRmKHN0ZGVyciwgIiVzXG4lc1xuIiwgKHN0b3JlZF9lcnJv
+ciA9PSBOVUxMKSA/ICIiIDogc3RvcmVkX2Vycm9yLCBNRVNTQUdFKTsgYWJvcnQoKTsgfSBzZXRf
+ZXJyb3IoTUVTU0FHRSk7IHJldHVybiBSRVQ7IH0KCiAKdHlwZWRlZiBzdHJ1Y3QgTGluZWFyUmVn
+X2NhbGxiYWNrX3N0cmVhbSB7Cgl1aW50OF90ICp1c2VyX3B0cjsKCXVpbnQ4X3QgKmFsaWduZWRf
+cHRyOwoJc2l6ZV90ICAgc2l6ZTsKCWludCAgICAgIGlzX291dHB1dDsKfSBMaW5lYXJSZWdfY2Fs
+bGJhY2tfc3RyZWFtX3Q7Cgp0eXBlZGVmIHN0cnVjdCBMaW5lYXJSZWdfY2FsbGJhY2tfZGF0YSB7
+CglMaW5lYXJSZWdfY2FsbGJhY2tfc3RyZWFtX3Qgc3RyZWFtWzZdOyAKCWludCBjb3VudDsKCWlu
+dCBtYXhfY291bnQ7Cn0gTGluZWFyUmVnX2NhbGxiYWNrX2RhdGFfdDsKCnN0YXRpYyB2b2lkIExp
+bmVhclJlZ19jYWxsYmFja19pbnRlcm5hbCh2b2lkICpjYl9kYXRhKQp7CglMaW5lYXJSZWdfY2Fs
+bGJhY2tfZGF0YV90ICpkYXRhID0gKExpbmVhclJlZ19jYWxsYmFja19kYXRhX3QqKSBjYl9kYXRh
+OwoJZm9yIChpbnQgaSA9IDAgOyBpIDwgZGF0YS0+Y291bnQgOyBpKysgKSB7CgkJTGluZWFyUmVn
+X2NhbGxiYWNrX3N0cmVhbV90ICpzID0gJmRhdGEtPnN0cmVhbVtpXTsKCQlpZiAocy0+aXNfb3V0
+cHV0ICYmIChzLT5zaXplID4gMCkpIHsKCQkJbWVtY3B5KHMtPnVzZXJfcHRyLCBzLT5hbGlnbmVk
+X3B0ciwgcy0+c2l6ZSk7CgkJfQoJCWZyZWUocy0+YWxpZ25lZF9wdHIpOwoJfQoJZnJlZShkYXRh
+KTsKfQoKc3RhdGljIG1heF9hY3Rpb25zX3QqIExpbmVhclJlZ19jb252ZXJ0X2ludGVybmFsKAoJ
+bWF4X2ZpbGVfdCAqbWF4ZmlsZSwKCUxpbmVhclJlZ19hY3Rpb25zX3QgKmludGVyZmFjZV9hY3Rp
+b25zLAoJaW50ICBpc19pbnRlcm5hbF9jYWxsLAoJdm9pZCAoKipjYWxsYmFja19mdW5jKSh2b2lk
+KiksCgl2b2lkICoqY2FsbGJhY2tfZGF0YSkKewoJbWF4X2FjdGlvbnNfdCAqYWN0aW9ucyA9IG1h
+eF9hY3Rpb25zX2luaXQobWF4ZmlsZSwgTlVMTCk7CglpZihhY3Rpb25zID09IE5VTEwpIHJldHVy
+biBOVUxMOwoKI2RlZmluZSBDSEVDS19FUlJPUlMgaWYoIW1heF9vayhhY3Rpb25zLT5lcnJvcnMp
+KSB7IHNldF9lcnJvcl9hbmRfZnJlZShtYXhfZXJyb3JzX3RyYWNlKGFjdGlvbnMtPmVycm9ycykp
+OyByZXR1cm4gTlVMTDsgfSAKCglMaW5lYXJSZWdfY2FsbGJhY2tfZGF0YV90ICpjYl9kYXRhID0g
+TlVMTDsKCWludCB1c2VfY2FsbGJhY2sgPSAoY2FsbGJhY2tfZnVuYyAhPSBOVUxMKSAmJiAoY2Fs
+bGJhY2tfZGF0YSAhPSBOVUxMKTsKCWlmICh1c2VfY2FsbGJhY2spIHsKCQljYl9kYXRhID0gbWFs
+bG9jKHNpemVvZihMaW5lYXJSZWdfY2FsbGJhY2tfZGF0YV90KSk7CgkJaWYgKGNiX2RhdGEgPT0g
+TlVMTCkgewoJCQlmcHJpbnRmKHN0ZGVyciwgIlVuYWJsZSB0byBhbGxvY2F0ZSBtZW1vcnkgZm9y
+IHN0cmVhbSBjYWxsYmFjayBkYXRhIGluIGZ1bmN0aW9uIExpbmVhclJlZ19jb252ZXJ0X2ludGVy
+bmFsXG4iKTsKCQkJcmV0dXJuIE5VTEw7CgkJfQoJCWNiX2RhdGEtPm1heF9jb3VudCA9IDY7CgkJ
+Y2JfZGF0YS0+Y291bnQgICAgID0gMDsKCQkqY2FsbGJhY2tfZGF0YSAgICAgPSBjYl9kYXRhOwoJ
+CSpjYWxsYmFja19mdW5jICAgICA9ICZMaW5lYXJSZWdfY2FsbGJhY2tfaW50ZXJuYWw7Cgl9CgoJ
+aW50NjRfdCBwYXJhbV9kYXRhUG9pbnRzID0gaW50ZXJmYWNlX2FjdGlvbnMtPnBhcmFtX2RhdGFQ
+b2ludHM7CgkKCWludDMyX3QgcGFyYW1fTGluZWFyUmVnS2VybmVsX2xvb3BMZW5ndGggPSBMaW5l
+YXJSZWdfZ2V0X0xpbmVhclJlZ0tlcm5lbF9sb29wTGVuZ3RoKCAgKTsKCQoJaW50NjRfdCB0bXBf
+MCA9IChwYXJhbV9kYXRhUG9pbnRzICogcGFyYW1fTGluZWFyUmVnS2VybmVsX2xvb3BMZW5ndGgp
+OwoJCgkvKiBjb2RlIGZvciBzY2FsYXIgTGluZWFyUmVnS2VybmVsLnJ1bl9jeWNsZV9jb3VudCAq
+LwoJdWludDY0X3QgdGlja3NfTGluZWFyUmVnS2VybmVsID0gdG1wXzA7CgltYXhfc2V0X3RpY2tz
+KGFjdGlvbnMsICJMaW5lYXJSZWdLZXJuZWwiLCB0bXBfMCk7CglDSEVDS19FUlJPUlM7CgkvKiBl
+bmQgb2YgY29kZSBmb3Igc2NhbGFyIExpbmVhclJlZ0tlcm5lbC5ydW5fY3ljbGVfY291bnQqLwoJ
+CgkvKiBjb2RlIGZvciBzY2FsYXIgTGluZWFyUmVnS2VybmVsLmRhdGFQb2ludHMgKi8KCWRvdWJs
+ZSBpbnNjYWxhcl9MaW5lYXJSZWdLZXJuZWxfZGF0YVBvaW50cyA9IHBhcmFtX2RhdGFQb2ludHM7
+CgltYXhfc2V0X2RvdWJsZShhY3Rpb25zLCAiTGluZWFyUmVnS2VybmVsIiwgImRhdGFQb2ludHMi
+LCBpbnNjYWxhcl9MaW5lYXJSZWdLZXJuZWxfZGF0YVBvaW50cyk7CglDSEVDS19FUlJPUlM7Cgkv
+KiBlbmQgb2YgY29kZSBmb3Igc2NhbGFyIExpbmVhclJlZ0tlcm5lbC5kYXRhUG9pbnRzKi8KCQoJ
+aW50NjRfdCB0bXBfMSA9IChwYXJhbV9kYXRhUG9pbnRzICogNCk7CgkKCS8qIGNvZGUgZm9yIHN0
+cmVhbSB4MSAqLwoJc2l6ZV90IGluc3RyZWFtX3NpemVfeDEgPSB0bXBfMTsKCWlmIChpbnN0cmVh
+bV9zaXplX3gxID4gMCkgewoJCWNvbnN0IGZsb2F0ICpzdHJlYW1fcHRyID0gaW50ZXJmYWNlX2Fj
+dGlvbnMtPmluc3RyZWFtX3gxOwoJCWlmICh1c2VfY2FsbGJhY2sgJiYgKDEgPT0gTGluZWFyUmVn
+X2NoZWNrX2FsaWduZWQoaW50ZXJmYWNlX2FjdGlvbnMtPmluc3RyZWFtX3gxKSkpIHsKCQkJZmxv
+YXQgKmFsaWduZWRfaW5zdHJlYW1feDEgPSBtYWxsb2MoaW5zdHJlYW1fc2l6ZV94MSk7CgkJCWlm
+IChhbGlnbmVkX2luc3RyZWFtX3gxID09IE5VTEwpIHsKCQkJCW1heF9yZXBvcnRfZXJyb3Jfc2xp
+YyhhY3Rpb25zLT5lcnJvcnMsIF9fRklMRV9fLCBfX0xJTkVfXywgNTI2LCAiRmFpbGVkIHRvIGFs
+bG9jYXRlIGFsaWduZWQgbWVtb3J5IGZvciBzdHJlYW0gJ3gxJyIpOwoJCQkJQ0hFQ0tfRVJST1JT
+OwoJCQl9CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPnVzZXJfcHRyICAg
+ID0gKHVpbnQ4X3QqKSBpbnRlcmZhY2VfYWN0aW9ucy0+aW5zdHJlYW1feDE7CgkJCSgmY2JfZGF0
+YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPmFsaWduZWRfcHRyID0gKHVpbnQ4X3QqKSBhbGln
+bmVkX2luc3RyZWFtX3gxOwoJCQkoJmNiX2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5jb3VudF0pLT5z
+aXplICAgICAgICA9IGluc3RyZWFtX3NpemVfeDE7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2Rh
+dGEtPmNvdW50XSktPmlzX291dHB1dCAgID0gMDsKCQkJY2JfZGF0YS0+Y291bnQgKz0gMTsKCQkJ
+bWVtY3B5KGFsaWduZWRfaW5zdHJlYW1feDEsIGludGVyZmFjZV9hY3Rpb25zLT5pbnN0cmVhbV94
+MSwgaW5zdHJlYW1fc2l6ZV94MSk7CgkJCXN0cmVhbV9wdHIgPSBhbGlnbmVkX2luc3RyZWFtX3gx
+OwoJCX0KCQltYXhfcXVldWVfaW5wdXQoYWN0aW9ucywgIngxIiwgc3RyZWFtX3B0ciwgaW5zdHJl
+YW1fc2l6ZV94MSk7CgkJQ0hFQ0tfRVJST1JTOwoJfQoJLyogZW5kIG9mIGNvZGUgZm9yIHN0cmVh
+bSB4MSAqLwoJCglpbnQ2NF90IHRtcF8yID0gKHBhcmFtX2RhdGFQb2ludHMgKiA0KTsKCQoJLyog
+Y29kZSBmb3Igc3RyZWFtIHgyICovCglzaXplX3QgaW5zdHJlYW1fc2l6ZV94MiA9IHRtcF8yOwoJ
+aWYgKGluc3RyZWFtX3NpemVfeDIgPiAwKSB7CgkJY29uc3QgZmxvYXQgKnN0cmVhbV9wdHIgPSBp
+bnRlcmZhY2VfYWN0aW9ucy0+aW5zdHJlYW1feDI7CgkJaWYgKHVzZV9jYWxsYmFjayAmJiAoMSA9
+PSBMaW5lYXJSZWdfY2hlY2tfYWxpZ25lZChpbnRlcmZhY2VfYWN0aW9ucy0+aW5zdHJlYW1feDIp
+KSkgewoJCQlmbG9hdCAqYWxpZ25lZF9pbnN0cmVhbV94MiA9IG1hbGxvYyhpbnN0cmVhbV9zaXpl
+X3gyKTsKCQkJaWYgKGFsaWduZWRfaW5zdHJlYW1feDIgPT0gTlVMTCkgewoJCQkJbWF4X3JlcG9y
+dF9lcnJvcl9zbGljKGFjdGlvbnMtPmVycm9ycywgX19GSUxFX18sIF9fTElORV9fLCA1MjYsICJG
+YWlsZWQgdG8gYWxsb2NhdGUgYWxpZ25lZCBtZW1vcnkgZm9yIHN0cmVhbSAneDInIik7CgkJCQlD
+SEVDS19FUlJPUlM7CgkJCX0KCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+
+dXNlcl9wdHIgICAgPSAodWludDhfdCopIGludGVyZmFjZV9hY3Rpb25zLT5pbnN0cmVhbV94MjsK
+CQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+YWxpZ25lZF9wdHIgPSAodWlu
+dDhfdCopIGFsaWduZWRfaW5zdHJlYW1feDI7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEt
+PmNvdW50XSktPnNpemUgICAgICAgID0gaW5zdHJlYW1fc2l6ZV94MjsKCQkJKCZjYl9kYXRhLT5z
+dHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+aXNfb3V0cHV0ICAgPSAwOwoJCQljYl9kYXRhLT5jb3Vu
+dCArPSAxOwoJCQltZW1jcHkoYWxpZ25lZF9pbnN0cmVhbV94MiwgaW50ZXJmYWNlX2FjdGlvbnMt
+Pmluc3RyZWFtX3gyLCBpbnN0cmVhbV9zaXplX3gyKTsKCQkJc3RyZWFtX3B0ciA9IGFsaWduZWRf
+aW5zdHJlYW1feDI7CgkJfQoJCW1heF9xdWV1ZV9pbnB1dChhY3Rpb25zLCAieDIiLCBzdHJlYW1f
+cHRyLCBpbnN0cmVhbV9zaXplX3gyKTsKCQlDSEVDS19FUlJPUlM7Cgl9CgkvKiBlbmQgb2YgY29k
+ZSBmb3Igc3RyZWFtIHgyICovCgkKCWludDY0X3QgdG1wXzMgPSAocGFyYW1fZGF0YVBvaW50cyAq
+IDQpOwoJCgkvKiBjb2RlIGZvciBzdHJlYW0geSAqLwoJc2l6ZV90IGluc3RyZWFtX3NpemVfeSA9
+IHRtcF8zOwoJaWYgKGluc3RyZWFtX3NpemVfeSA+IDApIHsKCQljb25zdCBmbG9hdCAqc3RyZWFt
+X3B0ciA9IGludGVyZmFjZV9hY3Rpb25zLT5pbnN0cmVhbV95OwoJCWlmICh1c2VfY2FsbGJhY2sg
+JiYgKDEgPT0gTGluZWFyUmVnX2NoZWNrX2FsaWduZWQoaW50ZXJmYWNlX2FjdGlvbnMtPmluc3Ry
+ZWFtX3kpKSkgewoJCQlmbG9hdCAqYWxpZ25lZF9pbnN0cmVhbV95ID0gbWFsbG9jKGluc3RyZWFt
+X3NpemVfeSk7CgkJCWlmIChhbGlnbmVkX2luc3RyZWFtX3kgPT0gTlVMTCkgewoJCQkJbWF4X3Jl
+cG9ydF9lcnJvcl9zbGljKGFjdGlvbnMtPmVycm9ycywgX19GSUxFX18sIF9fTElORV9fLCA1MjYs
+ICJGYWlsZWQgdG8gYWxsb2NhdGUgYWxpZ25lZCBtZW1vcnkgZm9yIHN0cmVhbSAneSciKTsKCQkJ
+CUNIRUNLX0VSUk9SUzsKCQkJfQoJCQkoJmNiX2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5jb3VudF0p
+LT51c2VyX3B0ciAgICA9ICh1aW50OF90KikgaW50ZXJmYWNlX2FjdGlvbnMtPmluc3RyZWFtX3k7
+CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPmFsaWduZWRfcHRyID0gKHVp
+bnQ4X3QqKSBhbGlnbmVkX2luc3RyZWFtX3k7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEt
+PmNvdW50XSktPnNpemUgICAgICAgID0gaW5zdHJlYW1fc2l6ZV95OwoJCQkoJmNiX2RhdGEtPnN0
+cmVhbVtjYl9kYXRhLT5jb3VudF0pLT5pc19vdXRwdXQgICA9IDA7CgkJCWNiX2RhdGEtPmNvdW50
+ICs9IDE7CgkJCW1lbWNweShhbGlnbmVkX2luc3RyZWFtX3ksIGludGVyZmFjZV9hY3Rpb25zLT5p
+bnN0cmVhbV95LCBpbnN0cmVhbV9zaXplX3kpOwoJCQlzdHJlYW1fcHRyID0gYWxpZ25lZF9pbnN0
+cmVhbV95OwoJCX0KCQltYXhfcXVldWVfaW5wdXQoYWN0aW9ucywgInkiLCBzdHJlYW1fcHRyLCBp
+bnN0cmVhbV9zaXplX3kpOwoJCUNIRUNLX0VSUk9SUzsKCX0KCS8qIGVuZCBvZiBjb2RlIGZvciBz
+dHJlYW0geSAqLwoJCglpbnQ2NF90IHRtcF80ID0gKHBhcmFtX2RhdGFQb2ludHMgKiA0KTsKCQoJ
+LyogY29kZSBmb3Igc3RyZWFtIGEgKi8KCXNpemVfdCBvdXRzdHJlYW1fc2l6ZV9hID0gdG1wXzQ7
+CglpZiAob3V0c3RyZWFtX3NpemVfYSA+IDApIHsKCQlmbG9hdCAqc3RyZWFtX3B0ciA9IGludGVy
+ZmFjZV9hY3Rpb25zLT5vdXRzdHJlYW1fYTsKCQlpZiAodXNlX2NhbGxiYWNrICYmICgxID09IExp
+bmVhclJlZ19jaGVja19hbGlnbmVkKGludGVyZmFjZV9hY3Rpb25zLT5vdXRzdHJlYW1fYSkpKSB7
+CgkJCWZsb2F0ICphbGlnbmVkX291dHN0cmVhbV9hID0gbWFsbG9jKG91dHN0cmVhbV9zaXplX2Ep
+OwoJCQlpZiAoYWxpZ25lZF9vdXRzdHJlYW1fYSA9PSBOVUxMKSB7CgkJCQltYXhfcmVwb3J0X2Vy
+cm9yX3NsaWMoYWN0aW9ucy0+ZXJyb3JzLCBfX0ZJTEVfXywgX19MSU5FX18sIDUyNiwgIkZhaWxl
+ZCB0byBhbGxvY2F0ZSBhbGlnbmVkIG1lbW9yeSBmb3Igc3RyZWFtICdhJyIpOwoJCQkJQ0hFQ0tf
+RVJST1JTOwoJCQl9CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPnVzZXJf
+cHRyICAgID0gKHVpbnQ4X3QqKSBpbnRlcmZhY2VfYWN0aW9ucy0+b3V0c3RyZWFtX2E7CgkJCSgm
+Y2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPmFsaWduZWRfcHRyID0gKHVpbnQ4X3Qq
+KSBhbGlnbmVkX291dHN0cmVhbV9hOwoJCQkoJmNiX2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5jb3Vu
+dF0pLT5zaXplICAgICAgICA9IG91dHN0cmVhbV9zaXplX2E7CgkJCSgmY2JfZGF0YS0+c3RyZWFt
+W2NiX2RhdGEtPmNvdW50XSktPmlzX291dHB1dCAgID0gMTsKCQkJY2JfZGF0YS0+Y291bnQgKz0g
+MTsKCQkJc3RyZWFtX3B0ciA9IGFsaWduZWRfb3V0c3RyZWFtX2E7CgkJfQoJCW1heF9xdWV1ZV9v
+dXRwdXQoYWN0aW9ucywgImEiLCBzdHJlYW1fcHRyLCBvdXRzdHJlYW1fc2l6ZV9hKTsKCQlDSEVD
+S19FUlJPUlM7Cgl9CgkvKiBlbmQgb2YgY29kZSBmb3Igc3RyZWFtIGEgKi8KCQoJaW50NjRfdCB0
+bXBfNSA9IChwYXJhbV9kYXRhUG9pbnRzICogNCk7CgkKCS8qIGNvZGUgZm9yIHN0cmVhbSBiMSAq
+LwoJc2l6ZV90IG91dHN0cmVhbV9zaXplX2IxID0gdG1wXzU7CglpZiAob3V0c3RyZWFtX3NpemVf
+YjEgPiAwKSB7CgkJZmxvYXQgKnN0cmVhbV9wdHIgPSBpbnRlcmZhY2VfYWN0aW9ucy0+b3V0c3Ry
+ZWFtX2IxOwoJCWlmICh1c2VfY2FsbGJhY2sgJiYgKDEgPT0gTGluZWFyUmVnX2NoZWNrX2FsaWdu
+ZWQoaW50ZXJmYWNlX2FjdGlvbnMtPm91dHN0cmVhbV9iMSkpKSB7CgkJCWZsb2F0ICphbGlnbmVk
+X291dHN0cmVhbV9iMSA9IG1hbGxvYyhvdXRzdHJlYW1fc2l6ZV9iMSk7CgkJCWlmIChhbGlnbmVk
+X291dHN0cmVhbV9iMSA9PSBOVUxMKSB7CgkJCQltYXhfcmVwb3J0X2Vycm9yX3NsaWMoYWN0aW9u
+cy0+ZXJyb3JzLCBfX0ZJTEVfXywgX19MSU5FX18sIDUyNiwgIkZhaWxlZCB0byBhbGxvY2F0ZSBh
+bGlnbmVkIG1lbW9yeSBmb3Igc3RyZWFtICdiMSciKTsKCQkJCUNIRUNLX0VSUk9SUzsKCQkJfQoJ
+CQkoJmNiX2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5jb3VudF0pLT51c2VyX3B0ciAgICA9ICh1aW50
+OF90KikgaW50ZXJmYWNlX2FjdGlvbnMtPm91dHN0cmVhbV9iMTsKCQkJKCZjYl9kYXRhLT5zdHJl
+YW1bY2JfZGF0YS0+Y291bnRdKS0+YWxpZ25lZF9wdHIgPSAodWludDhfdCopIGFsaWduZWRfb3V0
+c3RyZWFtX2IxOwoJCQkoJmNiX2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5jb3VudF0pLT5zaXplICAg
+ICAgICA9IG91dHN0cmVhbV9zaXplX2IxOwoJCQkoJmNiX2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5j
+b3VudF0pLT5pc19vdXRwdXQgICA9IDE7CgkJCWNiX2RhdGEtPmNvdW50ICs9IDE7CgkJCXN0cmVh
+bV9wdHIgPSBhbGlnbmVkX291dHN0cmVhbV9iMTsKCQl9CgkJbWF4X3F1ZXVlX291dHB1dChhY3Rp
+b25zLCAiYjEiLCBzdHJlYW1fcHRyLCBvdXRzdHJlYW1fc2l6ZV9iMSk7CgkJQ0hFQ0tfRVJST1JT
+OwoJfQoJLyogZW5kIG9mIGNvZGUgZm9yIHN0cmVhbSBiMSAqLwoJCglpbnQ2NF90IHRtcF82ID0g
+KHBhcmFtX2RhdGFQb2ludHMgKiA0KTsKCQoJLyogY29kZSBmb3Igc3RyZWFtIGIyICovCglzaXpl
+X3Qgb3V0c3RyZWFtX3NpemVfYjIgPSB0bXBfNjsKCWlmIChvdXRzdHJlYW1fc2l6ZV9iMiA+IDAp
+IHsKCQlmbG9hdCAqc3RyZWFtX3B0ciA9IGludGVyZmFjZV9hY3Rpb25zLT5vdXRzdHJlYW1fYjI7
+CgkJaWYgKHVzZV9jYWxsYmFjayAmJiAoMSA9PSBMaW5lYXJSZWdfY2hlY2tfYWxpZ25lZChpbnRl
+cmZhY2VfYWN0aW9ucy0+b3V0c3RyZWFtX2IyKSkpIHsKCQkJZmxvYXQgKmFsaWduZWRfb3V0c3Ry
+ZWFtX2IyID0gbWFsbG9jKG91dHN0cmVhbV9zaXplX2IyKTsKCQkJaWYgKGFsaWduZWRfb3V0c3Ry
+ZWFtX2IyID09IE5VTEwpIHsKCQkJCW1heF9yZXBvcnRfZXJyb3Jfc2xpYyhhY3Rpb25zLT5lcnJv
+cnMsIF9fRklMRV9fLCBfX0xJTkVfXywgNTI2LCAiRmFpbGVkIHRvIGFsbG9jYXRlIGFsaWduZWQg
+bWVtb3J5IGZvciBzdHJlYW0gJ2IyJyIpOwoJCQkJQ0hFQ0tfRVJST1JTOwoJCQl9CgkJCSgmY2Jf
+ZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPnVzZXJfcHRyICAgID0gKHVpbnQ4X3QqKSBp
+bnRlcmZhY2VfYWN0aW9ucy0+b3V0c3RyZWFtX2IyOwoJCQkoJmNiX2RhdGEtPnN0cmVhbVtjYl9k
+YXRhLT5jb3VudF0pLT5hbGlnbmVkX3B0ciA9ICh1aW50OF90KikgYWxpZ25lZF9vdXRzdHJlYW1f
+YjI7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPnNpemUgICAgICAgID0g
+b3V0c3RyZWFtX3NpemVfYjI7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSkt
+PmlzX291dHB1dCAgID0gMTsKCQkJY2JfZGF0YS0+Y291bnQgKz0gMTsKCQkJc3RyZWFtX3B0ciA9
+IGFsaWduZWRfb3V0c3RyZWFtX2IyOwoJCX0KCQltYXhfcXVldWVfb3V0cHV0KGFjdGlvbnMsICJi
+MiIsIHN0cmVhbV9wdHIsIG91dHN0cmVhbV9zaXplX2IyKTsKCQlDSEVDS19FUlJPUlM7Cgl9Cgkv
+KiBlbmQgb2YgY29kZSBmb3Igc3RyZWFtIGIyICovCgkKCWlmICh1c2VfY2FsbGJhY2sgJiYgY2Jf
+ZGF0YS0+Y291bnQgPT0gMCkgewoJCSpjYWxsYmFja19kYXRhID0gTlVMTDsKCQkqY2FsbGJhY2tf
+ZnVuYyA9IE5VTEw7CgkJZnJlZShjYl9kYXRhKTsKCX0KCXJldHVybiBhY3Rpb25zOwojdW5kZWYg
+Q0hFQ0tfRVJST1JTCn0KCnZvaWQgTGluZWFyUmVnKAoJaW50NjRfdCBwYXJhbV9kYXRhUG9pbnRz
+LAoJY29uc3QgZmxvYXQgKmluc3RyZWFtX3gxLAoJY29uc3QgZmxvYXQgKmluc3RyZWFtX3gyLAoJ
+Y29uc3QgZmxvYXQgKmluc3RyZWFtX3ksCglmbG9hdCAqb3V0c3RyZWFtX2EsCglmbG9hdCAqb3V0
+c3RyZWFtX2IxLAoJZmxvYXQgKm91dHN0cmVhbV9iMikKewoJKHZvaWQpIHB0aHJlYWRfb25jZSgm
+c2xpY19ic19pc19pbml0aWFsaXNlZCwgTGluZWFyUmVnX3N0YXRpY19pbml0KTsKCUNIRUNLX05V
+TEwoc3RvcmVkX21heGZpbGUsICJNYXhmaWxlIHdhcyBub3QgbG9hZGVkIiwgKTsKCW1heF9ydW5f
+dCAqcnVuID0gTGluZWFyUmVnX25vbmJsb2NrKHBhcmFtX2RhdGFQb2ludHMsIGluc3RyZWFtX3gx
+LCBpbnN0cmVhbV94MiwgaW5zdHJlYW1feSwgb3V0c3RyZWFtX2EsIG91dHN0cmVhbV9iMSwgb3V0
+c3RyZWFtX2IyKTsKCUNIRUNLX05VTEwocnVuLCAiVW5hYmxlIHRvIHJ1biBhY3Rpb25zIiwgKTsK
+CW1heF93YWl0KHJ1bik7Cn0KCm1heF9ydW5fdCAqTGluZWFyUmVnX25vbmJsb2NrKAoJaW50NjRf
+dCBwYXJhbV9kYXRhUG9pbnRzLAoJY29uc3QgZmxvYXQgKmluc3RyZWFtX3gxLAoJY29uc3QgZmxv
+YXQgKmluc3RyZWFtX3gyLAoJY29uc3QgZmxvYXQgKmluc3RyZWFtX3ksCglmbG9hdCAqb3V0c3Ry
+ZWFtX2EsCglmbG9hdCAqb3V0c3RyZWFtX2IxLAoJZmxvYXQgKm91dHN0cmVhbV9iMikKewoJTGlu
+ZWFyUmVnX2FjdGlvbnNfdCBpbnRlcmZhY2VfYWN0aW9uczsKCWludGVyZmFjZV9hY3Rpb25zLnBh
+cmFtX2RhdGFQb2ludHMgPSBwYXJhbV9kYXRhUG9pbnRzOwoJaW50ZXJmYWNlX2FjdGlvbnMuaW5z
+dHJlYW1feDEgPSBpbnN0cmVhbV94MTsKCWludGVyZmFjZV9hY3Rpb25zLmluc3RyZWFtX3gyID0g
+aW5zdHJlYW1feDI7CglpbnRlcmZhY2VfYWN0aW9ucy5pbnN0cmVhbV95ID0gaW5zdHJlYW1feTsK
+CWludGVyZmFjZV9hY3Rpb25zLm91dHN0cmVhbV9hID0gb3V0c3RyZWFtX2E7CglpbnRlcmZhY2Vf
+YWN0aW9ucy5vdXRzdHJlYW1fYjEgPSBvdXRzdHJlYW1fYjE7CglpbnRlcmZhY2VfYWN0aW9ucy5v
+dXRzdHJlYW1fYjIgPSBvdXRzdHJlYW1fYjI7Cgkodm9pZCkgcHRocmVhZF9vbmNlKCZzbGljX2Jz
+X2lzX2luaXRpYWxpc2VkLCBMaW5lYXJSZWdfc3RhdGljX2luaXQpOwoJQ0hFQ0tfTlVMTChzdG9y
+ZWRfbWF4ZmlsZSwgIk1heGZpbGUgd2FzIG5vdCBsb2FkZWQiLCBOVUxMKTsKCXZvaWQgKCpjYl9m
+dW5jKSh2b2lkKikgPSBOVUxMOwoJdm9pZCAgKmNiX2RhdGEgICAgICAgICA9IE5VTEw7CgltYXhf
+YWN0aW9uc190ICphY3Rpb25zID0gTGluZWFyUmVnX2NvbnZlcnRfaW50ZXJuYWwoc3RvcmVkX21h
+eGZpbGUsICZpbnRlcmZhY2VfYWN0aW9ucywgMSwgJmNiX2Z1bmMsICZjYl9kYXRhKTsKCUNIRUNL
+X05VTEwoYWN0aW9ucywgIlVuYWJsZSB0byBidWlsZCBhY3Rpb25zIiwgTlVMTCk7CgltYXhfdmFs
+aWRhdGUoYWN0aW9ucyk7CglDSEVDS19FUlJPUlNfU1QoYWN0aW9ucywgTlVMTCk7CglDSEVDS19F
+UlJPUlNfU1Qoc3RvcmVkX2VuZ2luZSwgTlVMTCk7CgltYXhfcnVuX3QgKnJ1bjsKCWlmIChjYl9m
+dW5jID09IE5VTEwpIHsKCQlydW4gPSBtYXhfcnVuX25vbmJsb2NrKHN0b3JlZF9lbmdpbmUsIGFj
+dGlvbnMpOwoJfSBlbHNlIHsKCQlydW4gPSBtYXhfcnVuX25vbmJsb2NrX3dpdGhfY2Ioc3RvcmVk
+X2VuZ2luZSwgYWN0aW9ucywgY2JfZnVuYywgY2JfZGF0YSk7Cgl9CglDSEVDS19OVUxMKHJ1biwg
+IlVuYWJsZSB0byBydW4gYWN0aW9ucyIsIE5VTEwpOwoJQ0hFQ0tfRVJST1JTX1NUKGFjdGlvbnMs
+IE5VTEwpOwoJbWF4X2FjdGlvbnNfZnJlZShhY3Rpb25zKTsKCXJldHVybiBydW47Cn0KCnZvaWQg
+TGluZWFyUmVnX3J1bigKCW1heF9lbmdpbmVfdCAqZW5naW5lLAoJTGluZWFyUmVnX2FjdGlvbnNf
+dCAqaW50ZXJmYWNlX2FjdGlvbnMpCnsKCW1heF9ydW5fdCAqcnVuID0gTGluZWFyUmVnX3J1bl9u
+b25ibG9jayhlbmdpbmUsIGludGVyZmFjZV9hY3Rpb25zKTsKCUNIRUNLX05VTEwocnVuLCAiVW5h
+YmxlIHRvIHJ1biBhY3Rpb25zIiwgKTsKCW1heF93YWl0KHJ1bik7Cn0KCm1heF9ydW5fdCAqTGlu
+ZWFyUmVnX3J1bl9ub25ibG9jaygKCW1heF9lbmdpbmVfdCAqZW5naW5lLAoJTGluZWFyUmVnX2Fj
+dGlvbnNfdCAqaW50ZXJmYWNlX2FjdGlvbnMpCnsKCW1heF9maWxlX3QgKm1heGZpbGUgPSBtYXhf
+ZW5naW5lX2dldF9tYXhfZmlsZShlbmdpbmUpOyAKCXZvaWQgKCpjYl9mdW5jKSh2b2lkKikgPSBO
+VUxMOwoJdm9pZCAgKmNiX2RhdGEgICAgICAgICA9IE5VTEw7CgltYXhfYWN0aW9uc190ICphY3Rp
+b25zID0gTGluZWFyUmVnX2NvbnZlcnRfaW50ZXJuYWwobWF4ZmlsZSwgaW50ZXJmYWNlX2FjdGlv
+bnMsIDEsICZjYl9mdW5jLCAmY2JfZGF0YSk7CglDSEVDS19FUlJPUlNfU1QoYWN0aW9ucywgTlVM
+TCk7CgltYXhfcnVuX3QgKnJ1bjsKCWlmIChjYl9mdW5jID09IE5VTEwpIHsKCQlydW4gPSBtYXhf
+cnVuX25vbmJsb2NrKGVuZ2luZSwgYWN0aW9ucyk7Cgl9IGVsc2UgewoJCXJ1biA9IG1heF9ydW5f
+bm9uYmxvY2tfd2l0aF9jYihlbmdpbmUsIGFjdGlvbnMsIGNiX2Z1bmMsIGNiX2RhdGEpOwoJfQoJ
+Q0hFQ0tfTlVMTChydW4sICJVbmFibGUgdG8gcnVuIGFjdGlvbnMiLCBOVUxMKTsKCW1heF9hY3Rp
+b25zX2ZyZWUoYWN0aW9ucyk7CglyZXR1cm4gcnVuOwp9CgoKLyoqCiAqIFxicmllZiBHcm91cCBy
+dW4gYWR2YW5jZWQgc3RhdGljIGZ1bmN0aW9uIGZvciB0aGUgaW50ZXJmYWNlICdkZWZhdWx0Jy4K
+ICogCiAqIFxwYXJhbSBbaW5dIGdyb3VwIEdyb3VwIHRvIHVzZS4KICogXHBhcmFtIFtpbixvdXRd
+IGludGVyZmFjZV9hY3Rpb25zIEFjdGlvbnMgdG8gcnVuLgogKgogKiBSdW4gdGhlIGFjdGlvbnMg
+b24gdGhlIGZpcnN0IGRldmljZSBhdmFpbGFibGUgaW4gdGhlIGdyb3VwLgogKi8Kdm9pZCBMaW5l
+YXJSZWdfcnVuX2dyb3VwKG1heF9ncm91cF90ICpncm91cCwgTGluZWFyUmVnX2FjdGlvbnNfdCAq
+aW50ZXJmYWNlX2FjdGlvbnMpCnsKCW1heF9ydW5fdCAqcnVuID0gTGluZWFyUmVnX3J1bl9ncm91
+cF9ub25ibG9jayhncm91cCwgaW50ZXJmYWNlX2FjdGlvbnMpOwoJQ0hFQ0tfTlVMTChydW4sICJV
+bmFibGUgdG8gcnVuIGFjdGlvbnMiLCApOwoJbWF4X3dhaXQocnVuKTsKfQoKCi8qKgogKiBcYnJp
+ZWYgR3JvdXAgcnVuIGFkdmFuY2VkIHN0YXRpYyBub24tYmxvY2tpbmcgZnVuY3Rpb24gZm9yIHRo
+ZSBpbnRlcmZhY2UgJ2RlZmF1bHQnLgogKiAKICoKICogU2NoZWR1bGUgdGhlIGFjdGlvbnMgdG8g
+cnVuIG9uIHRoZSBmaXJzdCBkZXZpY2UgYXZhaWxhYmxlIGluIHRoZSBncm91cCBhbmQgcmV0dXJu
+IGltbWVkaWF0ZWx5LgogKiBUaGUgc3RhdHVzIG9mIHRoZSBydW4gbXVzdCBiZSBjaGVja2VkIHdp
+dGggOjptYXhfd2FpdC4gCiAqIE5vdGUgdGhhdCB1c2Ugb2YgOjptYXhfbm93YWl0IGlzIHByb2hp
+Yml0ZWQgd2l0aCBub24tYmxvY2tpbmcgcnVubmluZyBvbiBncm91cHM6CiAqIHNlZSB0aGUgOjpt
+YXhfcnVuX2dyb3VwX25vbmJsb2NrIGRvY3VtZW50YXRpb24gZm9yIG1vcmUgZXhwbGFuYXRpb24u
+CiAqCiAqIFxwYXJhbSBbaW5dIGdyb3VwIEdyb3VwIHRvIHVzZS4KICogXHBhcmFtIFtpbl0gaW50
+ZXJmYWNlX2FjdGlvbnMgQWN0aW9ucyB0byBydW4uCiAqIFxyZXR1cm4gQSBoYW5kbGUgb24gdGhl
+IGV4ZWN1dGlvbiBzdGF0dXMgb2YgdGhlIGFjdGlvbnMsIG9yIE5VTEwgaW4gY2FzZSBvZiBlcnJv
+ci4KICovCm1heF9ydW5fdCAqTGluZWFyUmVnX3J1bl9ncm91cF9ub25ibG9jayhtYXhfZ3JvdXBf
+dCAqZ3JvdXAsIExpbmVhclJlZ19hY3Rpb25zX3QgKmludGVyZmFjZV9hY3Rpb25zKQp7CgltYXhf
+ZmlsZV90ICptYXhmaWxlID0gbWF4X2dyb3VwX2dldF9tYXhfZmlsZShncm91cCk7CgltYXhfYWN0
+aW9uc190ICphY3Rpb25zID0gTGluZWFyUmVnX2NvbnZlcnRfaW50ZXJuYWwobWF4ZmlsZSwgaW50
+ZXJmYWNlX2FjdGlvbnMsIDEsIE5VTEwsIE5VTEwpOwoJaWYoYWN0aW9ucyA9PSBOVUxMKSByZXR1
+cm4gTlVMTDsKCWlmKCFtYXhfb2soYWN0aW9ucy0+ZXJyb3JzKSkgcmV0dXJuIE5VTEw7CgltYXhf
+dmFsaWRhdGUoYWN0aW9ucyk7CgltYXhfcnVuX3QgKnJ1biA9IG1heF9ydW5fZ3JvdXBfbm9uYmxv
+Y2soZ3JvdXAsIGFjdGlvbnMpOwoJbWF4X2FjdGlvbnNfZnJlZShhY3Rpb25zKTsKCXJldHVybiBy
+dW47Cn0KCgovKioKICogXGJyaWVmIEFycmF5IHJ1biBhZHZhbmNlZCBzdGF0aWMgZnVuY3Rpb24g
+Zm9yIHRoZSBpbnRlcmZhY2UgJ2RlZmF1bHQnLgogKiAKICogXHBhcmFtIFtpbl0gZW5nYXJyYXkg
+VGhlIGFycmF5IG9mIGRldmljZXMgdG8gdXNlLgogKiBccGFyYW0gW2luLG91dF0gaW50ZXJmYWNl
+X2FjdGlvbnMgVGhlIGFycmF5IG9mIGFjdGlvbnMgdG8gcnVuLgogKgogKiBSdW4gdGhlIGFycmF5
+IG9mIGFjdGlvbnMgb24gdGhlIGFycmF5IG9mIGVuZ2luZXMuICBUaGUgbGVuZ3RoIG9mIGludGVy
+ZmFjZV9hY3Rpb25zCiAqIG11c3QgbWF0Y2ggdGhlIHNpemUgb2YgZW5nYXJyYXkuCiAqLwp2b2lk
+IExpbmVhclJlZ19ydW5fYXJyYXkobWF4X2VuZ2FycmF5X3QgKmVuZ2FycmF5LCBMaW5lYXJSZWdf
+YWN0aW9uc190ICppbnRlcmZhY2VfYWN0aW9uc1tdKQp7CgltYXhfcnVuX3QgKnJ1biA9IExpbmVh
+clJlZ19ydW5fYXJyYXlfbm9uYmxvY2soZW5nYXJyYXksIGludGVyZmFjZV9hY3Rpb25zKTsKCUNI
+RUNLX05VTEwocnVuLCAiVW5hYmxlIHRvIHJ1biBhY3Rpb25zIiwgKTsKCW1heF93YWl0KHJ1bik7
+Cn0KCgovKioKICogXGJyaWVmIEFycmF5IHJ1biBhZHZhbmNlZCBzdGF0aWMgbm9uLWJsb2NraW5n
+IGZ1bmN0aW9uIGZvciB0aGUgaW50ZXJmYWNlICdkZWZhdWx0Jy4KICogCiAqCiAqIFNjaGVkdWxl
+IHRvIHJ1biB0aGUgYXJyYXkgb2YgYWN0aW9ucyBvbiB0aGUgYXJyYXkgb2YgZW5naW5lcywgYW5k
+IHJldHVybiBpbW1lZGlhdGVseS4KICogVGhlIGxlbmd0aCBvZiBpbnRlcmZhY2VfYWN0aW9ucyBt
+dXN0IG1hdGNoIHRoZSBzaXplIG9mIGVuZ2FycmF5LgogKiBUaGUgc3RhdHVzIG9mIHRoZSBydW4g
+Y2FuIGJlIGNoZWNrZWQgZWl0aGVyIGJ5IDo6bWF4X3dhaXQgb3IgOjptYXhfbm93YWl0OwogKiBu
+b3RlIHRoYXQgb25lIG9mIHRoZXNlICptdXN0KiBiZSBjYWxsZWQsIHNvIHRoYXQgYXNzb2NpYXRl
+ZCBtZW1vcnkgY2FuIGJlIHJlbGVhc2VkLgogKgogKiBccGFyYW0gW2luXSBlbmdhcnJheSBUaGUg
+YXJyYXkgb2YgZGV2aWNlcyB0byB1c2UuCiAqIFxwYXJhbSBbaW5dIGludGVyZmFjZV9hY3Rpb25z
+IFRoZSBhcnJheSBvZiBhY3Rpb25zIHRvIHJ1bi4KICogXHJldHVybiBBIGhhbmRsZSBvbiB0aGUg
+ZXhlY3V0aW9uIHN0YXR1cyBvZiB0aGUgYWN0aW9ucywgb3IgTlVMTCBpbiBjYXNlIG9mIGVycm9y
+LgogKi8KbWF4X3J1bl90ICpMaW5lYXJSZWdfcnVuX2FycmF5X25vbmJsb2NrKG1heF9lbmdhcnJh
+eV90ICplbmdhcnJheSwgTGluZWFyUmVnX2FjdGlvbnNfdCAqaW50ZXJmYWNlX2FjdGlvbnNbXSkK
+ewoJbWF4X2ZpbGVfdCAqbWF4ZmlsZSA9IG1heF9lbmdhcnJheV9nZXRfbWF4X2ZpbGUoZW5nYXJy
+YXksIDApOwoJaW50IGk7CgltYXhfYWN0YXJyYXlfdCAqYWN0YXJyYXkgPSBtYXhfYWN0YXJyYXlf
+aW5pdChtYXhmaWxlLCBlbmdhcnJheS0+c2l6ZSk7CglpZiAoYWN0YXJyYXkgPT0gTlVMTCkgcmV0
+dXJuIE5VTEw7CgltYXhfYWN0aW9uc190ICoqYXJyX2FjdGlvbnMgPSBtYWxsb2MoZW5nYXJyYXkt
+PnNpemUgKiBzaXplb2YobWF4X2FjdGlvbnNfdCopKTsKCWZvciAoIGkgPSAwIDsgaSA8IGFjdGFy
+cmF5LT5zaXplOyBpKysgKSB7CgkJbWF4X2FjdGlvbnNfdCAqYWN0aW9ucyA9IExpbmVhclJlZ19j
+b252ZXJ0X2ludGVybmFsKG1heGZpbGUsIGludGVyZmFjZV9hY3Rpb25zW2ldLCAxLCBOVUxMLCBO
+VUxMKTsKCQlpZiAoYWN0aW9ucyA9PSBOVUxMKSByZXR1cm4gTlVMTDsKCQlhcnJfYWN0aW9uc1tp
+XSA9IGFjdGlvbnM7CgkJbWF4X3NldF9hY3Rpb24oYWN0YXJyYXksIGksIGFjdGlvbnMpOwoJfQoJ
+bWF4X3J1bl90ICpydW4gPSBtYXhfcnVuX2FycmF5X25vbmJsb2NrKGVuZ2FycmF5LCBhY3RhcnJh
+eSk7Cglmb3IgKCBpID0gMCA7IGkgPCBhY3RhcnJheS0+c2l6ZSA7IGkrKyApIHsgbWF4X2FjdGlv
+bnNfZnJlZShhcnJfYWN0aW9uc1tpXSk7IH0KCW1heF9hY3RhcnJheV9mcmVlKGFjdGFycmF5KTsK
+CWZyZWUoYXJyX2FjdGlvbnMpOwoJcmV0dXJuIHJ1bjsKfQoKCi8qKgogKiBcYnJpZWYgQ29udmVy
+dHMgYSBzdGF0aWMtaW50ZXJmYWNlIGFjdGlvbiBzdHJ1Y3QgaW50byBhIGR5bmFtaWMtaW50ZXJm
+YWNlIG1heF9hY3Rpb25zX3Qgc3RydWN0LgogKgogKiBOb3RlIHRoYXQgdGhpcyBpcyBhbiBpbnRl
+cm5hbCB1dGlsaXR5IGZ1bmN0aW9uIHVzZWQgYnkgb3RoZXIgZnVuY3Rpb25zIGluIHRoZSBzdGF0
+aWMgaW50ZXJmYWNlLgogKgogKiBccGFyYW0gW2luXSBtYXhmaWxlIFRoZSBtYXhmaWxlIHRvIHVz
+ZS4KICogXHBhcmFtIFtpbl0gaW50ZXJmYWNlX2FjdGlvbnMgVGhlIGludGVyZmFjZS1zcGVjaWZp
+YyBhY3Rpb25zIHRvIHJ1bi4KICogXHJldHVybiBUaGUgZHluYW1pYy1pbnRlcmZhY2UgYWN0aW9u
+cyB0byBydW4sIG9yIE5VTEwgaW4gY2FzZSBvZiBlcnJvci4KICovCm1heF9hY3Rpb25zX3QqIExp
+bmVhclJlZ19jb252ZXJ0KG1heF9maWxlX3QgKm1heGZpbGUsIExpbmVhclJlZ19hY3Rpb25zX3Qg
+KmludGVyZmFjZV9hY3Rpb25zKQp7CglyZXR1cm4gTGluZWFyUmVnX2NvbnZlcnRfaW50ZXJuYWwo
+bWF4ZmlsZSwgaW50ZXJmYWNlX2FjdGlvbnMsIDAsIE5VTEwsIE5VTEwpOwp9CgojdW5kZWYgQ0hF
+Q0tfRVJST1JTX1NUCiN1bmRlZiBDSEVDS19OVUxMCgoK
+#endif /* SLIC_B64_DEFINITIONS */
+
+#ifdef SLIC_EXTRA_FILES
+PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHVz
+ZXJmaWxlcyBmb3JtYXQtdmVyc2lvbj0iMjAxMjAyMDAiLz4=
+#endif /* SLIC_EXTRA_FILES */
+
+#ifdef PHOTON_NODE_ADD_DATA
+#define PHOTON_NODE_ADD_DATA_PRESENT 1
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 2, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 183, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 5, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 201, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 119, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 120, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 121, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 122, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 180, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 200, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 19, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 20, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 21, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 22, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 23, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 0, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 38, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 165, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 3, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 4, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 199, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 40, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 157, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 41, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 42, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 43, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 176, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 198, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 99, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 174, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 197, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 7, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 8, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 9, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 10, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 11, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 166, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 24, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 196, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 26, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 158, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 27, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 28, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 29, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 45, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 167, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 46, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 47, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 48, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 195, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 50, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 168, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 159, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 51, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 52, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 53, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 194, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 13, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 14, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 15, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 16, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 17, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 169, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 31, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 193, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 33, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 160, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 34, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 35, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 36, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 85, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 87, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 88, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 192, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 90, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 170, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 161, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 91, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 92, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 93, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 100, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 67, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 68, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 191, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 70, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 171, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 162, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 71, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 72, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 73, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 57, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 58, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 190, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 60, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 172, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 163, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 61, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 62, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 63, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 101, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 102, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 77, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 78, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 189, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 80, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 173, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 164, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 81, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 82, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 83, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 95, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 96, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 97, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 103, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 104, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 105, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 175, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 114, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 115, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 188, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 107, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 177, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 108, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 109, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 110, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 111, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 112, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 113, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 178, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 116, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 179, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 117, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 123, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 187, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 125, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 126, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 127, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 128, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 181, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 129, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 186, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 131, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 132, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 133, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 134, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 182, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 135, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 140, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 185, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 137, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 138, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 139, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 141, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 184, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 143, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 144, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 146, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 147, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(LinearRegKernel, 145, "SquashFactor", 0.0)
+#endif
+
+#ifdef MAXFILE_SIGNATURE
+#define MAXFILE_SIGNATURE_PRESENT 1
+MAXFILE_SIGNATURE("302d02150093efcfbb94609b557cd9feea96da43bac0febabc021459bdc9ee1594adcfa48b9e0620a4e7c58dc918ae")
+#endif
+

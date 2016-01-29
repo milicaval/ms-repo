@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maxCompilerManager version="2">
+<enginePart internalEngineSubproject="LinearRegressionMS_EngineCode" isSrcBin="false" isUseDefaultSelected="false" outputLocation="/LinearRegressionMS_EngineCode/bin" projectName="LinearRegressionMS"/>
+<cpuPart internalCpuSubproject="LinearRegressionMS_CPUCode"/>
+<watchedFiles/>
+</maxCompilerManager>

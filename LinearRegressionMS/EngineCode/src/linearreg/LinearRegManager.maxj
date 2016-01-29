@@ -1,0 +1,71 @@
+package linearreg;
+
+import com.maxeler.maxcompiler.v2.managers.BuildConfig;
+import com.maxeler.maxcompiler.v2.managers.custom.CustomManager;
+import com.maxeler.maxcompiler.v2.managers.custom.blocks.KernelBlock;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.CPUTypes;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.EngineInterface;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.EngineInterface.Direction;
+import com.maxeler.maxcompiler.v2.managers.engine_interfaces.InterfaceParam;
+
+public class LinearRegManager extends CustomManager {
+
+	private static final String s_kernelName = "LinearRegKernel";
+
+	public LinearRegManager(LinearRegEngineParameters engineParameters) {
+		super(engineParameters);
+
+		KernelBlock block = addKernel(new LinearRegKernel(makeKernelParameters(s_kernelName)));
+
+		block.getInput("x1") <== addStreamFromCPU("x1");
+		block.getInput("x2") <== addStreamFromCPU("x2");
+		block.getInput("y") <== addStreamFromCPU("y");
+		addStreamToCPU("a") <== block.getOutput("a");
+		addStreamToCPU("b1") <== block.getOutput("b1");
+		addStreamToCPU("b2") <== block.getOutput("b2");
+		createSLiCinterface(modeDefault());
+
+		configBuild(engineParameters);
+	}
+
+	private static EngineInterface modeDefault() {
+		EngineInterface engine_interface = new EngineInterface();
+		CPUTypes   type = CPUTypes.FLOAT;
+		int        size = type.sizeInBytes();
+
+		InterfaceParam  dataPoints  = engine_interface.addParam("dataPoints", CPUTypes.INT);
+		InterfaceParam 	loopLength	=	engine_interface.getAutoLoopOffset("LinearRegKernel", "loopLength");
+		engine_interface.ignoreAutoLoopOffset("LinearRegKernel", "loopLength");
+
+		engine_interface.setTicks(s_kernelName, dataPoints * loopLength);
+
+		engine_interface.setScalar(s_kernelName, "dataPoints", dataPoints);
+
+		engine_interface.setStream("x1", type, dataPoints * size);
+		engine_interface.setStream("x2", type, dataPoints * size);
+		engine_interface.setStream("y", type, dataPoints * size);
+		engine_interface.setStream("a", type, dataPoints * size);
+		engine_interface.setStream("b1", type, dataPoints * size);
+		engine_interface.setStream("b2", type, dataPoints * size);
+		engine_interface.ignoreAll(Direction.IN_OUT);
+		return engine_interface;
+	}
+
+	private void configBuild(LinearRegEngineParameters params) {
+		BuildConfig buildConfig = getBuildConfig();
+		buildConfig.setMPPRParallelism(params.getMPPRThreads());
+		buildConfig.setMPPRRetryNearMissesThreshold(params.getMPPRRetryThreshold());
+
+		buildConfig.setMPPRCostTableSearchRange(1, 4);
+		buildConfig.setBuildEffort(BuildConfig.Effort.HIGH);
+
+	}
+
+
+	public static void main(String[] args) {
+		LinearRegEngineParameters params = new LinearRegEngineParameters(args);
+		LinearRegManager manager = new LinearRegManager(params);
+
+		manager.build();
+	}
+}

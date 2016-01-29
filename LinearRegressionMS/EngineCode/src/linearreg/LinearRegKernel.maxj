@@ -1,0 +1,79 @@
+package linearreg;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.CounterChain;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.OffsetExpr;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+
+class LinearRegKernel extends Kernel {
+
+		private static final DFEType type = dfeFloat(8, 24);   // compute in float
+
+		protected LinearRegKernel(KernelParameters parameters) {
+			super(parameters);
+
+			 //scalar input for number of data points
+			DFEVar dataPoints = io.scalarInput("dataPoints", type);
+
+			//automatically determine stream offset for carried sums
+			//more information in the loop and pipelining tutorial, section 12
+			OffsetExpr loopLength = stream.makeOffsetAutoLoop("loopLength");
+			DFEVar looplenthVal = loopLength.getDFEVar(this, dfeUInt(8)); // will be 13 ticks for float adder
+
+			//setup chained counters for input data and loop offset
+			//more information on nested loops in maxcompiler tutorial, section 9.2
+			CounterChain chain = control.count.makeCounterChain();
+			DFEVar dataCounter = chain.addCounter(dataPoints.cast(dfeUInt(32)), 1);
+			DFEVar loopCounter = chain.addCounter(looplenthVal, 1);
+
+			//stream inputs, slowed down to only take an input every 'looplenthVal' ticks
+			//necessary to accommodate the loop offset of the carried sum below
+			DFEVar x1 = io.input("x1", type, loopCounter === 0);
+			DFEVar x2 = io.input("x2", type, loopCounter === 0);
+			DFEVar y = io.input("y", type, loopCounter === 0);
+
+			//compute mean values for x and y
+			//DFEVar meanX = sumX / (dataCounter.cast(type) + 1);
+			//DFEVar meanY = sumY / (dataCounter.cast(type) + 1);
+
+			DFEVar meanX1 = accumulate(x1/dataPoints, dataCounter, loopLength);
+			DFEVar meanX2 = accumulate(x2/dataPoints, dataCounter, loopLength);
+			DFEVar meanY = accumulate(y/dataPoints, dataCounter, loopLength);
+
+			//compute the accumulated sums of x, x^2, y and x*y
+
+			DFEVar cov_Y_X1 = accumulate((x1 - meanX1) * (y - meanY) / dataPoints, dataCounter, loopLength);
+			DFEVar cov_Y_X2 = accumulate((x2 - meanX2) * (y - meanY) / dataPoints, dataCounter, loopLength);
+			DFEVar cov_X1_X2 = accumulate((x1 - meanX1) * (x2 - meanX2) / dataPoints, dataCounter, loopLength);
+			DFEVar cov_X1_X1 = accumulate((x1 - meanX1) * (x1 - meanX1) / dataPoints, dataCounter, loopLength);
+			DFEVar cov_X2_X2 = accumulate((x2 - meanX2) * (x2 - meanX2) / dataPoints, dataCounter, loopLength);
+
+			//compute coefficient a and b
+			DFEVar k =(cov_X1_X1 * cov_X2_X2 - cov_X1_X2 * cov_X1_X2);
+			DFEVar b1 = (dataCounter === 0) ? 0.0
+					: ((cov_Y_X1 * cov_X2_X2 - cov_X1_X2 * cov_Y_X2) / k);
+			DFEVar b2 = (dataCounter === 0) ? 0.0
+					: ((cov_X1_X1 * cov_Y_X2 - cov_Y_X1 * cov_X1_X2) / k);
+			DFEVar a = meanY - b1 * meanX1 - b2 * meanX2;
+			//DFEVar a = meanY - b * meanX;
+
+			//output a and b, slowed down to only produce on output every 'looplenthVal' ticks
+			io.output("a",a, type,  loopCounter === 0);
+			io.output("b1",b1, type,  loopCounter === 0);
+			io.output("b2",b2, type,  loopCounter === 0);
+		}
+
+		//compute accumulate the input value
+		//the offset of the carried sum automatically determined by 'loopLength'
+		DFEVar accumulate(DFEVar in, DFEVar dataCounter, OffsetExpr loopLength){
+			DFEVar carriedSum = type.newInstance(this);
+			DFEVar sum = (dataCounter===0)? 0.0 : carriedSum;
+			DFEVar newSum = in + sum;
+			DFEVar newSumOffset = stream.offset(newSum, -loopLength);
+			carriedSum <== newSumOffset;
+			return newSum;
+		}
+
+	}

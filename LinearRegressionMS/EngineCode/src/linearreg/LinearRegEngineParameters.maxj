@@ -1,0 +1,10 @@
+package linearreg;
+
+import com.maxeler.maxcompiler.v2.build.EngineParameters;
+
+public class LinearRegEngineParameters extends EngineParameters {
+
+	public LinearRegEngineParameters(String[] args) {
+		super(args);
+	}
+}
