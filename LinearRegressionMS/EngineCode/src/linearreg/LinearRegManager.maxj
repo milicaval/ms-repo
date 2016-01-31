@@ -69,3 +69,11 @@ public class LinearRegManager extends CustomManager {
 		manager.build();
 	}
 }
+//code reference:
+//https://github.com/maxeler/Linear-Regression		Maxeler AppGallery project		Jovanovic, Milinkovic
+
+//scientific reference:
+//http://www.real-statistics.com/multiple-regression/least-squares-method-multiple-regression/
+
+//knowledge base:
+//Guide to DataFlow SuperComputing					Milutinovic, V., et al			Springer, 2015.

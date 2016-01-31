@@ -5,14 +5,21 @@
 #include "Maxfiles.h"
 #include "MaxSLiCInterface.h"
 
+// gaussian noise limited, preset proportion to coordinate size span
+
 #define noise_percentage 25.0
 
-void generisi_ulaz(float * data_x1, float * data_x2, float * data_y,
-		int numValues);
-void ispisi_ulaz(float * data_x1, float * data_x2, float * data_y,
-		int numValues);
+void ARR_INPUT(float * data_x1, float * data_x2, float * data_y, int numValues);
+
+void ARR_INPUT_TEST(float * data_x1, float * data_x2, float * data_y, int numValues);
+
+void ARR_output(float * data_x1, float * data_x2, float * data_y, int numValues);
+
 double AWGN_generator();
+
 double vreme(void);
+
+// plot line generator variables
 
 float slope1;
 float slope2;
@@ -20,9 +27,9 @@ float intercept;
 
 int main() {
 
-	const int dataPoints = 16000; //total number of data points, should be a multiples of 4
+	const int dataPoints = 16000; //number of data points to generate
 
-	int i; // loop counter
+	int i;
 	double startTime = 0.0, cpuDuration = 0.0, dfeDuration = 0.0; // timer values
 
 
@@ -32,18 +39,19 @@ int main() {
 	float *y = calloc(dataPoints, sizeof(float)); // input data y
 
 	float *a_cpu = calloc(dataPoints, sizeof(float)); // coefficients a (intercept), from CPU
-	float *b1_cpu = calloc(dataPoints, sizeof(float)); // coefficients b (slope), from CPU
-	float *b2_cpu = calloc(dataPoints, sizeof(float)); // coefficients b (slope), from CPU
+	float *b1_cpu = calloc(dataPoints, sizeof(float)); // coefficients b1 (slope), from CPU
+	float *b2_cpu = calloc(dataPoints, sizeof(float)); // coefficients b2 (slope), from CPU
+
 	float *a_dfe = calloc(dataPoints, sizeof(float)); // coefficients a (intercept), from DFE
-	float *b1_dfe = calloc(dataPoints, sizeof(float)); // coefficients b (slope), from DFE
-	float *b2_dfe = calloc(dataPoints, sizeof(float)); // coefficients b (slope), from CPU
+	float *b1_dfe = calloc(dataPoints, sizeof(float)); // coefficients b1 (slope), from DFE
+	float *b2_dfe = calloc(dataPoints, sizeof(float)); // coefficients b2 (slope), from CPU
 
 
-	//generating input data
+	// generating input data
 	printf("Generating input data...\n");
-	generisi_ulaz(x1, x2, y, dataPoints);
+	ARR_INPUT(x1, x2, y, dataPoints);
 
-	//CPU computing
+	// CPU computing
 	printf("Computing on CPU...\n");
 
 	float cov_X1_X1, cov_X1_X2, cov_X2_X2;
@@ -53,7 +61,7 @@ int main() {
 
 	float meanY = 0, meanX1 = 0, meanX2 = 0;
 
-	// racunanje srednjih vrednosti je ulaz za kovarijanse
+	// calculating means of X1, X2, Y is input for covariances
 
 	startTime = vreme();
 
@@ -66,24 +74,14 @@ int main() {
 	meanX1 /= dataPoints;
 	meanX2 /= dataPoints;
 
-	// -- racunanje srednjih vrednosti
+	// end calculating means
 
 	for (i = 0; i < dataPoints; i++) {
 
-		//TODO: deljenje ukloniti
-		//TODO: ovako prilagodjen kod je za DFE;
-		// optimalniji gold standard u duhu control flow?
-
-		/*A*/
 		cov_Y_X1 += (x1[i] - meanX1) * (y[i] - meanY) / dataPoints;
-		/*E*/
 		cov_Y_X2 += (x2[i] - meanX2) * (y[i] - meanY) / dataPoints;
-		/*D*/
 		cov_X1_X2 += (x2[i] - meanX2) * (x1[i] - meanX1) / dataPoints;
-
-		/*C*/
 		cov_X1_X1 += (x1[i] - meanX1) * (x1[i] - meanX1) / dataPoints;
-		/*F*/
 		cov_X2_X2 += (x2[i] - meanX2) * (x2[i] - meanX2) / dataPoints;
 
 		if (i == 0) {
@@ -114,30 +112,32 @@ int main() {
 
 	printf("DFE Done\n");
 
-	//ispisi_ulaz(x1, x2, y, dataPoints);
+	printf("\n\nINPUT:");
+	ARR_output(x1, x2, y, dataPoints);
 
-	//ispis izlaznih rezultata
+	//output resulting regression lines
+
 	for (i = 0; i < dataPoints; i++) {
-		printf("Intel:   y = %f + x1 * %f + x2 * %f\n", a_cpu[i], b1_cpu[i],
-				b2_cpu[i]);
-		printf("DFE:     y = %f + x1 * %f + x2 * %f\n", a_cpu[i], b1_cpu[i],
-				b2_cpu[i]);
+		printf("Intel:   y = %f + x1 * %f + x2 * %f\n",
+				a_cpu[i], b1_cpu[i], b2_cpu[i]);
+		printf("DFE:     y = %f + x1 * %f + x2 * %f\n",
+				a_cpu[i], b1_cpu[i], b2_cpu[i]);
 	}
 
-	printf("delta:     a = %f \t b = %f \t c = %f\n", intercept - a_cpu[i - 1],
-			slope1 - b1_cpu[i - 1], slope2 - b2_cpu[i - 1]);
-	printf("greska:     a = %f% \t b = %f% \t c = %f%\n",
-			(intercept - a_cpu[i - 1])/intercept*100,
-				(slope1 - b1_cpu[i - 1])/slope1*100,
-				(slope2 - b2_cpu[i - 1])/slope2*100);
+	printf("delta:     a = %f \t b = %f \t c = %f\n",
+			intercept - a_cpu[i - 1],
+			slope1 - b1_cpu[i - 1],
+			slope2 - b2_cpu[i - 1]);
+	printf("error:     a = %f %% \t b = %f %% \t c = %f %%\n",
+			(intercept - a_cpu[i - 1])/intercept*100.0,
+				(slope1 - b1_cpu[i - 1])/slope1*100.0,
+				(slope2 - b2_cpu[i - 1])/slope2*100.0);
 
-	//	printf("Intel:   y = %f + x1 * %f + x2 * %f\n", a_cpu[dataPoints - 1],
-	//			b1_cpu[dataPoints - 1], b2_cpu[dataPoints - 1]);
 
 	printf("CPU compute time: %f ms\n", cpuDuration);
 	printf("DFE compute time: %f ms\n", dfeDuration);
 
-	//dealokacija memorije
+	// deallocation
 	free(x1);
 	free(x2);
 	free(y);
@@ -151,56 +151,78 @@ int main() {
 	return 0;
 }
 
-//merenje vremena
+// time keeping
 double vreme() {
 	struct timeval vreme;
 	gettimeofday(&vreme, NULL);
 	return vreme.tv_usec / 1000.0; // ms
-
-	//return 1000000 * vreme.tv_usec+ vreme.;
 }
 
-// generisanje ulaznih podataka za racunanje regresije
-void generisi_ulaz(float * data_x1, float * data_x2, float * data_y,
-		int numValues) {
+// generate input data structure
+void ARR_INPUT(float * data_x1, float * data_x2, float * data_y, int numValues) {
+
 	srand(time(NULL));
 
 	slope1 = 1 - (float) rand() / RAND_MAX * 2;
 	slope2 = 1 - (float) rand() / RAND_MAX * 2;
-	// nagib: -1 .. 1
+	// slope : -1 .. 1
 	intercept = 10 - (float) rand() / RAND_MAX * 20;
-	// tacka preseka: -10 .. 10
+	// intercept: -10 .. 10
 
 	printf(
-			"Ulazni podaci odgovaraju linearnoj fji: (%2f) + (%2f) * x1 + (%2f) * x2 bez dodate buke.\n",
-			intercept, slope1, slope2);
+			"Input data generated around plot line: (%f) + (%f) * x1 + (%f) * x2 with added %f noise.\n",
+			intercept, slope1, slope2, noise_percentage);
 	int i;
-	// access array elements like array1[ii + dataPoints *jj]
 
 	for (i = 0; i < numValues; i++) {
 
-		float noise = AWGN_generator() * noise_percentage / 100; // 0..100%
+		float noise = AWGN_generator() * noise_percentage / 100; // random gaussian 0..100%
 
 		data_x1[i] = 10 * ((float) rand() / RAND_MAX); // 0..10
 		data_x2[i] = 10 * ((float) rand() / RAND_MAX); // 0..10
 
-		data_y[i] = intercept + slope1 * data_x1[i] + slope2 * data_x2[i];
-		data_y[i] = data_y[i] * (1 - 2 * noise);
+		data_y[i] = intercept + slope1 * data_x1[i] + slope2 * data_x2[i]; // plot function
 
-		// linear function with gaussian noise limited to a fixed percentage
+		data_y[i] = data_y[i] * (1 - 2 * noise); // add noise
+
 	}
 
 }
 
-void ispisi_ulaz(float * data_x1, float * data_x2, float * data_y,
-		int numValues) {
-	printf("*** GENERISANE VREDNOSTI ***\n");
+void ARR_INPUT_TEST(float * data_x1, float * data_x2, float * data_y, int numValues) {
+
+	srand(time(NULL));
+
+	slope1 = 1;
+	slope2 = 1;
+
+	intercept = 2;
+
+	printf(
+			"Input data generated around plot line: (%f) + (%f) * x1 + (%f) * x2 with no noise.\n",
+			intercept, slope1, slope2);
+	int i;
+
+	for (i = 0; i < numValues; i++) {
+
+		data_x1[i] = (int) (10 * ((float) rand() / RAND_MAX)); // 0..10
+		data_x2[i] = (int) (10 * ((float) rand() / RAND_MAX)); // 0..10
+
+		data_y[i] = intercept + slope1 * data_x1[i] + slope2 * data_x2[i]; // plot function
+
+	}
+
+}
+
+void ARR_output(float * data_x1, float * data_x2, float * data_y, int numValues) {
+	// used for testing, no longer present in code
+	printf("*** GENERATED VALUES ***\n");
 	for (int i = 0; i < numValues; i++) {
 
 		printf("[%d] :\tx1 = %f\tx2 = %f\ty = %f\n", i, data_x1[i], data_x2[i],
 				data_y[i]);
 	}
-	printf("*** KRAJ ISPISA ***\n");
+	printf("*** END OF GENERATED ***\n");
 
 }
 
@@ -232,5 +254,13 @@ double AWGN_generator() {
 	return result;
 
 }
-// credit: Additive White Gaussian Noise by Dr Cagri Tanriover @ EmbeddedRelated.com
 
+// code reference:
+// https://github.com/maxeler/Linear-Regression		Jovanovic, Milinkovic			Maxeler AppGallery project
+// Additive White Gaussian Noise					Dr Cagri Tanriover				@ EmbeddedRelated.com
+
+// scientific reference:
+// http://www.real-statistics.com/multiple-regression/least-squares-method-multiple-regression/
+
+// knowledge base:
+// Guide to DataFlow SuperComputing					Milutinovic, V., et al			Springer, 2015.

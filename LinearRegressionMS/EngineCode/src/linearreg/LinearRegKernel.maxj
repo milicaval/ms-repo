@@ -23,7 +23,6 @@ class LinearRegKernel extends Kernel {
 			DFEVar looplenthVal = loopLength.getDFEVar(this, dfeUInt(8)); // will be 13 ticks for float adder
 
 			//setup chained counters for input data and loop offset
-			//more information on nested loops in maxcompiler tutorial, section 9.2
 			CounterChain chain = control.count.makeCounterChain();
 			DFEVar dataCounter = chain.addCounter(dataPoints.cast(dfeUInt(32)), 1);
 			DFEVar loopCounter = chain.addCounter(looplenthVal, 1);
@@ -34,32 +33,29 @@ class LinearRegKernel extends Kernel {
 			DFEVar x2 = io.input("x2", type, loopCounter === 0);
 			DFEVar y = io.input("y", type, loopCounter === 0);
 
-			//compute mean values for x and y
-			//DFEVar meanX = sumX / (dataCounter.cast(type) + 1);
-			//DFEVar meanY = sumY / (dataCounter.cast(type) + 1);
+			DFEVar broj = (dataCounter.cast(type) + 1);
 
-			DFEVar meanX1 = accumulate(x1/dataPoints, dataCounter, loopLength);
-			DFEVar meanX2 = accumulate(x2/dataPoints, dataCounter, loopLength);
-			DFEVar meanY = accumulate(y/dataPoints, dataCounter, loopLength);
+			DFEVar meanX1 = accumulate(x1/broj, dataCounter, loopLength);
+			DFEVar meanX2 = accumulate(x2/broj, dataCounter, loopLength);
+			DFEVar meanY = accumulate(y/broj, dataCounter, loopLength);
 
-			//compute the accumulated sums of x, x^2, y and x*y
+			//compute the accumulated covariances for the parameter formula
 
-			DFEVar cov_Y_X1 = accumulate((x1 - meanX1) * (y - meanY) / dataPoints, dataCounter, loopLength);
-			DFEVar cov_Y_X2 = accumulate((x2 - meanX2) * (y - meanY) / dataPoints, dataCounter, loopLength);
-			DFEVar cov_X1_X2 = accumulate((x1 - meanX1) * (x2 - meanX2) / dataPoints, dataCounter, loopLength);
-			DFEVar cov_X1_X1 = accumulate((x1 - meanX1) * (x1 - meanX1) / dataPoints, dataCounter, loopLength);
-			DFEVar cov_X2_X2 = accumulate((x2 - meanX2) * (x2 - meanX2) / dataPoints, dataCounter, loopLength);
+			DFEVar cov_Y_X1 = accumulate((x1 - meanX1) * (y - meanY) / broj, dataCounter, loopLength);
+			DFEVar cov_Y_X2 = accumulate((x2 - meanX2) * (y - meanY) / broj, dataCounter, loopLength);
+			DFEVar cov_X1_X2 = accumulate((x1 - meanX1) * (x2 - meanX2) / broj, dataCounter, loopLength);
+			DFEVar cov_X1_X1 = accumulate((x1 - meanX1) * (x1 - meanX1) / broj, dataCounter, loopLength);
+			DFEVar cov_X2_X2 = accumulate((x2 - meanX2) * (x2 - meanX2) / broj, dataCounter, loopLength);
 
-			//compute coefficient a and b
-			DFEVar k =(cov_X1_X1 * cov_X2_X2 - cov_X1_X2 * cov_X1_X2);
+			//compute parameters a, b1, b2
+			DFEVar k = (cov_X1_X1 * cov_X2_X2 - cov_X1_X2 * cov_X1_X2);
 			DFEVar b1 = (dataCounter === 0) ? 0.0
 					: ((cov_Y_X1 * cov_X2_X2 - cov_X1_X2 * cov_Y_X2) / k);
 			DFEVar b2 = (dataCounter === 0) ? 0.0
 					: ((cov_X1_X1 * cov_Y_X2 - cov_Y_X1 * cov_X1_X2) / k);
 			DFEVar a = meanY - b1 * meanX1 - b2 * meanX2;
-			//DFEVar a = meanY - b * meanX;
 
-			//output a and b, slowed down to only produce on output every 'looplenthVal' ticks
+			//output a, b1, b2, slowed down to only produce on output every 'looplenthVal' ticks
 			io.output("a",a, type,  loopCounter === 0);
 			io.output("b1",b1, type,  loopCounter === 0);
 			io.output("b2",b2, type,  loopCounter === 0);
@@ -77,3 +73,12 @@ class LinearRegKernel extends Kernel {
 		}
 
 	}
+
+// code reference:
+// https://github.com/maxeler/Linear-Regression		Maxeler AppGallery project		Jovanovic, Milinkovic
+
+// scientific reference:
+// http://www.real-statistics.com/multiple-regression/least-squares-method-multiple-regression/
+
+// knowledge base:
+// Guide to DataFlow SuperComputing					Milutinovic, V., et al			Springer, 2015.
